@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container-sm">
+        <h1>Directory of Users</h1>
+        {% for user in user_list %}
+            <h4>
+                <a href="{% url 'directory:user_detail' sud.slug %}">{{ user.last_name }}, {{ user.first_name }}</a>
+            </h4>
+            <p>Skills:
+                {% for skill in user.skills.all %} 
+                {{ skill }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+    </div>
+{% endblock content %}
+    

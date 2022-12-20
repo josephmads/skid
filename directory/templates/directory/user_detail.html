@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <h1>{{ sud.first_name }} {{ sud.last_name }}</h1>
+        <ul>
+            <li>Business Name: {{ sud.business_name }}</li>
+            <li>Email: {{ sud.email_address }}</li>
+            <li>Phone: {{ sud.phone_number }}</li>
+            <li>
+                Address:<br>
+                {{ sud.address }}<br>
+                {{ sud.state_province }}<br> 
+                {{ sud.city }}<br>
+                {{ sud.zip_code }}
+                {{ sud.country }}<br>
+            </li>
+            <li>
+                Skills:
+                {% for skill in sud.skills.all %} 
+                {{ skill }}
+                {% endfor %}
+            </li>
+            <li>
+                Materials:
+                {% for material in sud.materials.all %}
+                {{ material }}
+                {% endfor %}
+            </li>
+            <li>
+                Type of Work:
+                {% for type in sud.type_of_work.all %}
+                {{ type }}
+                {% endfor %}
+            </li>
+        </ul>
+    </div>
+{% endblock content %}
+    
