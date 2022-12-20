@@ -51,13 +51,13 @@ class SkidUserDetail(models.Model):
     def __str__(self):
         return self.username
 
-    # def get_absolute_url(self):
-    #     """Returns URL to access a particular user instance."""
-    #     return reverse('directory:user_detail', kwargs={'slug': self.slug})
+    def get_absolute_url(self):
+        """Returns URL to access a particular user instance."""
+        return reverse('directory:user_detail', kwargs={'slug': self.slug})
         
-    # def save(self, *args, **kwargs):
-    #     value = self.username
-    #     self.slug = slugify(value, allow_unicode=True)
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        value = self.username
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
     
 
