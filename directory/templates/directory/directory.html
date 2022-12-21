@@ -1,8 +1,40 @@
 {% extends 'base.html' %}
 
 
+
+{% block title %}
+    <title>SKID | Directory</title>
+{% endblock title %}
+    
 {% block content %}
     <h1>The SKID Directory</h1>
-    <h3>Skills x Ideas</h3>
+    <div class="container-sm">
+        <h3>
+            See <a href="{% url 'directory:users' %}">All Users</a>
+        </h3>
+    </div>
+    <div class="container-sm">
+    <h3>List Users By:</h3>
+        <div class="container">
+            <h5>Skill</h5>
+                {% for skill in skills %}
+                    <a href="{% url 'directory:skill' skill.id %}" class="badge text-white bg-primary">
+                        {{ skill }}
+                    </a>
+                {% endfor %}
+            <h5>Material</h5>
+                {% for material in materials %}
+                    <a href="{% url 'directory:material' material.id %}" class="badge text-white bg-primary">
+                        {{ material }}
+                    </a>
+                {% endfor %}
+            <h5>Type of Work</h5>
+                {% for type in worktype %}
+                    <a href="{% url 'directory:work_type' type.id %}" class="badge text-white bg-primary">
+                        {{ type }}
+                    </a>
+                {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
     

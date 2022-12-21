@@ -28,7 +28,7 @@ class WorkType(models.Model):
 class SkidUserDetail(models.Model):    
     """Model representing a users personal information."""
     username = models.CharField(max_length=20, unique=True)
-    slug = models.SlugField(max_length=140, default='', null=True, blank=True, unique=True)
+    slug = models.SlugField(null=False, unique=True)
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True)
@@ -41,10 +41,11 @@ class SkidUserDetail(models.Model):
     zip_code = models.CharField('zip or postal code', max_length=10, blank=True)
     country = models.CharField(max_length=56, blank=True)
 
-    skills = models.ManyToManyField(to=Skill, blank=True)
-    materials = models.ManyToManyField(to=Material, blank=True)
+    skills = models.ManyToManyField(to=Skill, related_name='users', blank=True)
+    materials = models.ManyToManyField(to=Material, related_name='users', blank=True)
     type_of_work = models.ManyToManyField(
-        to=WorkType, 
+        to=WorkType,
+        related_name='users', 
         blank=True,
         help_text='eg: Prototype, Production, Made to Order, etc.')
 
@@ -56,8 +57,8 @@ class SkidUserDetail(models.Model):
         return reverse('directory:user_detail', kwargs={'slug': self.slug})
         
     def save(self, *args, **kwargs):
-        value = self.username
-        self.slug = slugify(value, allow_unicode=True)
+        if not self.slug:
+            self.slug = slugify(self.username)
         super().save(*args, **kwargs)
     
 

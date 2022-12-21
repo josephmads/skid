@@ -2,7 +2,7 @@
 
 
 {% block content %}
-    <div class="container">
+    <div>
         <h1>{{ sud.first_name }} {{ sud.last_name }}</h1>
         <ul>
             <li>Business Name: {{ sud.business_name }}</li>
@@ -19,19 +19,19 @@
             <li>
                 Skills:
                 {% for skill in sud.skills.all %} 
-                {{ skill }}
+                <a href="{% url 'directory:skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a>
                 {% endfor %}
             </li>
             <li>
                 Materials:
                 {% for material in sud.materials.all %}
-                {{ material }}
+                <a href="{% url 'directory:material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
                 {% endfor %}
             </li>
             <li>
                 Type of Work:
                 {% for type in sud.type_of_work.all %}
-                {{ type }}
+                <a href="{% url 'directory:work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
                 {% endfor %}
             </li>
         </ul>
