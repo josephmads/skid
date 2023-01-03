@@ -1,6 +1,8 @@
-from django.shortcuts import get_object_or_404, render
+from django.contrib.auth import login
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 
+from .forms import SignUpForm
 from .models import SkidUserDetail, Skill, Material, WorkType
 
 # Create your views here.
@@ -8,6 +10,35 @@ from .models import SkidUserDetail, Skill, Material, WorkType
 def home(request):
     """View function for the home page."""
     return render(request, 'directory/home.html')
+
+def signup(request):
+    """View function for the user signup form."""
+    # Logged in user can't register a new account
+    if request.user.is_authenticated:
+        return redirect("/")
+
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+
+        else:
+            for error in list(form.errors.values()):
+                print(request, error)
+    
+    else:
+        form = SignUpForm()
+
+    return render(
+        request = request,
+        template_name = 'directory/signup.html',
+        context = {'form': form}
+    )
+            
+
 
 def directory(request):
     """
@@ -30,10 +61,12 @@ class UserListView(generic.ListView):
     context_object_name = 'user_list'
     ordering = ['last_name']
 
-class UserDetailView(generic.DetailView):
-    model = SkidUserDetail
-    template_name = 'directory/user_detail.html'
-    context_object_name = 'sud'
+def user_detail_view(request, username):
+    sud = SkidUserDetail.objects.filter(username__username=username).first()
+    context = {
+        'sud': sud
+    }
+    return render(request, 'directory/user_detail.html', context)
 
 def list_skills(request, skill_id):
     """View function lists users by the skills they are tagged with."""

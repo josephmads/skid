@@ -11,7 +11,6 @@ class SkidUserDetailAdmin(admin.ModelAdmin):
         'business_name', 
         'email_address',
     )
-    exclude = ('slug',)
 
 admin.site.register(Skill)
 admin.site.register(Material)

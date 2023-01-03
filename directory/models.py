@@ -1,15 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
-from django.utils.text import slugify
+
+User=get_user_model()
 
 # Create your models here.
-
-class Skill(models.Model):
-    """Model representing the skills a user has."""
-    skill = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.skill
 
 class Material(models.Model):
     """Model representing the materials a user works with."""
@@ -17,6 +12,13 @@ class Material(models.Model):
 
     def __str__(self):
         return self.material
+
+class Skill(models.Model):
+    """Model representing the skills a user has."""
+    skill = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.skill
 
 class WorkType(models.Model):
     """Model representing the type of work a user can do."""
@@ -27,9 +29,7 @@ class WorkType(models.Model):
 
 class SkidUserDetail(models.Model):    
     """Model representing a users personal information."""
-    username = models.CharField(max_length=20, unique=True)
-    slug = models.SlugField(null=False, unique=True)
-
+    username = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True)
     business_name = models.CharField(max_length=100, blank=True)
@@ -49,16 +49,20 @@ class SkidUserDetail(models.Model):
         blank=True,
         help_text='eg: Prototype, Production, Made to Order, etc.')
 
-    def __str__(self):
-        return self.username
+    # def __str__(self):
+    #     return self.username
+
+    # def get_absolute_url(self):
+    #     """Returns URL to access a particular user instance."""
+    #     return reverse('directory:user_detail', kwargs={'slug': self.slug})
+        
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.username)
+    #     super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         """Returns URL to access a particular user instance."""
-        return reverse('directory:user_detail', kwargs={'slug': self.slug})
-        
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.username)
-        super().save(*args, **kwargs)
+        return reverse('directory:user_detail', args=[str(self.username)])
     
 
