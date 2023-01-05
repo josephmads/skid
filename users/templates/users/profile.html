@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <legend class="border-bottom mb-4">Profile Information:</legend>
+        <h1>{{ user.username }}</h1>
+        <div>
+            <h2>{{ details.first_name }} {{ details.last_name }}</h2>
+            <ul>
+                <li>Business Name: {{ details.business_name }}</li>
+                <li>Email: {{ details.email_address }}</li>
+                <li>Phone: {{ details.phone_number }}</li>
+                <li>
+                    Address:<br>
+                    {{ details.address }}<br>
+                    {{ details.state_province }}<br> 
+                    {{ details.city }}<br>
+                    {{ details.zip_code }}
+                    {{ details.country }}<br>
+                </li>
+                <li>
+                    Skills:
+                    {% for skill in details.skills.all %} 
+                    <p class="badge">{{ skill }}</p>
+                    {% endfor %}
+                </li>   
+                <li>
+                    Materials:
+                    {% for material in details.materials.all %}
+                    <p class="badge">{{ material }}</p>
+                    {% endfor %}
+                </li>
+                <li>
+                    Type of Work:
+                    {% for type in details.type_of_work.all %}
+                    <p class="badge">{{ type }}</p>
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    <div>
+        <a class="btn btn-secondary" href="{% url 'users:edit_profile' user.username %}">Edit Profile</a>
+    </div>
+</div>
+{% endblock content %}

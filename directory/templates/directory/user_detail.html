@@ -5,7 +5,7 @@
     <div>
         <h1>{{ sud.first_name }} {{ sud.last_name }}</h1>
         <ul>
-            <li>Business Name: {{ sud.business_name }}</li>
+            {% if sud.business_name %}<li>Business Name: {{ sud.business_name }}</li>{% endif %}
             <li>Email: {{ sud.email_address }}</li>
             <li>Phone: {{ sud.phone_number }}</li>
             <li>

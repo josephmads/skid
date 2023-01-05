@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container-sm">
+    <h3>{{ idea.title }}</h3>
+    <h5 class="text-muted">by, <a href="#">{{ idea.username }}</a></h5>
+    <div>
+        {% for skill in idea.skills.all %}
+        <a href="#" class="badge bg-primary">
+        {{ skill }}
+        </a>
+        {% endfor %}
+    </div>
+    <p class="text-muted small">{{ idea.published }}</p>
+    <p class="word-wrap" style="width: 80rem;"> {{ idea.text | safe }}</p>
+    <br></br>
+    <a href="{% url 'directory:ideas' %}" class="btn btn-primary">Go Back</a>
+</div>
+{% endblock content %}
+    

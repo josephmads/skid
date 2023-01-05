@@ -1,45 +1,14 @@
-from django.contrib.auth import login
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .forms import SignUpForm
-from .models import SkidUserDetail, Skill, Material, WorkType
+from .models import Idea, SkidUserDetail, Skill, Material, WorkType
 
 # Create your views here.
 
 def home(request):
     """View function for the home page."""
     return render(request, 'directory/home.html')
-
-def signup(request):
-    """View function for the user signup form."""
-    # Logged in user can't register a new account
-    if request.user.is_authenticated:
-        return redirect("/")
-
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('/')
-
-        else:
-            for error in list(form.errors.values()):
-                print(request, error)
-    
-    else:
-        form = SignUpForm()
-
-    return render(
-        request = request,
-        template_name = 'directory/signup.html',
-        context = {'form': form}
-    )
-            
-
-
+ 
 def directory(request):
     """
     View function landing page for the directory side of the site.
@@ -55,6 +24,8 @@ def directory(request):
     }
     return render(request, 'directory/directory.html', context)
 
+#USER LIST AND DETAIL
+
 class UserListView(generic.ListView):
     model = SkidUserDetail
     template_name = 'directory/user_list.html'
@@ -62,7 +33,7 @@ class UserListView(generic.ListView):
     ordering = ['last_name']
 
 def user_detail_view(request, username):
-    sud = SkidUserDetail.objects.filter(username__username=username).first()
+    sud = SkidUserDetail.objects.filter(username__username=username).first() #FIX ME Write Test for when no SUD exists
     context = {
         'sud': sud
     }
@@ -97,3 +68,18 @@ def list_work_type(request, type_id):
         'users': users
     }
     return render(request, 'directory/user_list.html', context)
+
+#IDEA LIST, DETAIL, AND COMMENT
+
+class IdeaListView(generic.ListView):
+    queryset = Idea.objects.filter(status='p').order_by('-published')
+    template_name = 'directory/idea_list.html'
+    context_object_name = 'idea_list'
+    
+
+def idea_detail(request, slug):
+    idea = Idea.objects.get(slug=slug)
+    context = {
+        'idea': idea,
+    }
+    return render(request, 'directory/idea_detail.html', context)

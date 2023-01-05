@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>Access Denied</h1>
+    <p>You do not have permission to be here.</p>
+    <a href="{% url 'directory:home' %}">Go Home</a>
+{% endblock content %}
+    

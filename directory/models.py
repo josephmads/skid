@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 User=get_user_model()
 
@@ -37,8 +38,8 @@ class SkidUserDetail(models.Model):
     phone_number = models.CharField(max_length=15, blank=True)
     address = models.CharField(max_length=150, blank=True)
     city = models.CharField(max_length=150, blank=True)
-    state_province = models.CharField('state or province', max_length=100, blank=True)
-    zip_code = models.CharField('zip or postal code', max_length=10, blank=True)
+    state_province = models.CharField('State or Province', max_length=100, blank=True)
+    zip_code = models.CharField('Zip or Postal Code', max_length=10, blank=True)
     country = models.CharField(max_length=56, blank=True)
 
     skills = models.ManyToManyField(to=Skill, related_name='users', blank=True)
@@ -49,20 +50,58 @@ class SkidUserDetail(models.Model):
         blank=True,
         help_text='eg: Prototype, Production, Made to Order, etc.')
 
-    # def __str__(self):
-    #     return self.username
-
-    # def get_absolute_url(self):
-    #     """Returns URL to access a particular user instance."""
-    #     return reverse('directory:user_detail', kwargs={'slug': self.slug})
-        
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.username)
-    #     super().save(*args, **kwargs)
-
     def get_absolute_url(self):
         """Returns URL to access a particular user instance."""
         return reverse('directory:user_detail', args=[str(self.username)])
     
+class Idea(models.Model):
+    """Model representing an Idea that a user shares with other others."""
+    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='idea')
+    title = models.CharField(max_length=140)
+    slug = models.SlugField(max_length=140, default='', null=True, blank=True, unique=True)
+    text = models.TextField()
+    published = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    skills = models.ManyToManyField(
+        to=Skill, 
+        related_name='idea', 
+        blank=True,
+        help_text='Type of skills needed for this Idea.')
+
+    materials = models.ManyToManyField(
+        to=Material, 
+        related_name='idea', 
+        blank=True,
+        help_text='Type of materials needed for this Idea.')
+
+    type_of_work = models.ManyToManyField(
+        to=WorkType,
+        related_name='idea', 
+        blank=True,
+        help_text='How many do you need made? eg: one = prototype, many = production, etc.')
+
+    IDEA_STATUS = (
+        ('d', 'Draft'),
+        ('p', 'Publish'),
+    )
+
+    status = models.CharField(
+        max_length=1,
+        choices=IDEA_STATUS,
+        blank=True,
+        default='d',
+    )
+
+    def __str__(self):
+        """String for representing the Idea."""
+        return f'{self.title} - by, {self.username}'
+
+    def get_absolute_url(self):
+        return reverse('directory:idea_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        value = self.title
+        self.slug = slugify(value, allow_unicode=True)
+        super().save(*args, **kwargs)
 
