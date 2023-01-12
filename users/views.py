@@ -54,6 +54,10 @@ def edit_profile(request, username):
         elif user:
             # form = ProfileUpdateForm(instance=user)
             qs = Profile.objects.filter(title=item.title)
+
+            if qs.exists():
+                qs_dict = model_to_dict(qs) # {id:1,'estimate':'some-estimate-data','logic':'some-logic-data'}
+
             existing_data = {
 
             }

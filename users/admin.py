@@ -5,16 +5,13 @@ from .models import Idea, Skill, Material, WorkType, Profile
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ( 
-        'first_name', 
-        'last_name', 
         'business_name', 
         'email_address',
     )
-    search_fields = ['first_name', 'last_name']
+    
 
 class IdeaAdmin(admin.ModelAdmin):
     list_display = (
-        'username',
         'title',
         'published',
         'updated',
