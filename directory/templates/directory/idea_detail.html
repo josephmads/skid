@@ -4,17 +4,34 @@
 {% block content %}
 <div class="container-sm">
     <h3>{{ idea.title }}</h3>
-    <h5 class="text-muted">by, <a href="#">{{ idea.username }}</a></h5>
-    <div>
+    <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.username %}">{{ idea.username }}</a></h5>
+    
+    <div class="container">
+        Skills:
         {% for skill in idea.skills.all %}
-        <a href="#" class="badge bg-primary">
-        {{ skill }}
-        </a>
+            <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">
+            {{ skill }}
+            </a>
+        {% endfor %}
+        <br>
+        Materials:
+        {% for material in idea.materials.all %}
+            <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">
+            {{ material }}
+            </a>
+        {% endfor %}
+        <br>
+        Type of Work:
+        {% for type in idea.type_of_work.all %}
+            <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">
+            {{ type }}
+            </a>
         {% endfor %}
     </div>
+    <div class="spacer"></div>
     <p class="text-muted small">{{ idea.published }}</p>
     <p class="word-wrap" style="width: 80rem;"> {{ idea.text | safe }}</p>
-    <br></br>
+    <div class="spacer"></div>
     <a href="{% url 'directory:ideas' %}" class="btn btn-primary">Go Back</a>
 </div>
 {% endblock content %}

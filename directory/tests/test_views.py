@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from directory.models import *
+from users.models import *
 
 # Create your tests here.
 

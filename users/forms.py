@@ -1,22 +1,17 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from directory.models import SkidUserDetail
+from .models import Profile, Skill
 
 User=get_user_model()
 
-
-class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
-
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email',]
-
-
-class SkidUserDetailUpdateForm(forms.ModelForm):
+class ProfileUpdateForm(forms.ModelForm):
+    # def __init__(self, *args, **kwargs):
+    #     super(ProfileUpdateForm, self).__init__(*args, **kwargs)
+    #     if self.instance:\
+    #         self.initial['first_name'] = Profile.objects.filter()
 
     class Meta:
-        model = SkidUserDetail
+        model = Profile
         fields = [
             'first_name',
             'last_name',
@@ -28,6 +23,7 @@ class SkidUserDetailUpdateForm(forms.ModelForm):
             'state_province',
             'zip_code',
             'country',
+            'about',
             'skills',
             'materials',
             'type_of_work',

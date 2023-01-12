@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .models import Idea, SkidUserDetail, Skill, Material, WorkType
+from users.models import Idea, Profile, Skill, Material, WorkType
 
 # Create your views here.
 
@@ -27,15 +27,15 @@ def directory(request):
 #USER LIST AND DETAIL
 
 class UserListView(generic.ListView):
-    model = SkidUserDetail
+    model = Profile
     template_name = 'directory/user_list.html'
     context_object_name = 'user_list'
     ordering = ['last_name']
 
 def user_detail_view(request, username):
-    sud = SkidUserDetail.objects.filter(username__username=username).first() #FIX ME Write Test for when no SUD exists
+    profile = Profile.objects.filter(username__username=username).first() #FIX ME Write Test for when no SUD exists
     context = {
-        'sud': sud
+        'profile': profile
     }
     return render(request, 'directory/user_detail.html', context)
 
@@ -45,7 +45,7 @@ def list_skills(request, skill_id):
     users = skill.users.all()
     context = {
         'skill_name': skill.skill,
-        'users': users
+        'users': users,
     }
     return render(request, 'directory/user_list.html', context)
 
@@ -72,10 +72,18 @@ def list_work_type(request, type_id):
 #IDEA LIST, DETAIL, AND COMMENT
 
 class IdeaListView(generic.ListView):
-    queryset = Idea.objects.filter(status='p').order_by('-published')
+    # queryset = Idea.objects.filter(status='p').order_by('-published')
+    model = Idea
     template_name = 'directory/idea_list.html'
     context_object_name = 'idea_list'
-    
+
+def idea_list(request):
+    idea_list = Idea.objects.filter(status='p').order_by('-published')
+    context = {
+        'idea_list': idea_list
+    }
+    breakpoint()
+    return render(request, 'directory/idea_list.html', context)
 
 def idea_detail(request, slug):
     idea = Idea.objects.get(slug=slug)
@@ -83,3 +91,33 @@ def idea_detail(request, slug):
         'idea': idea,
     }
     return render(request, 'directory/idea_detail.html', context)
+
+def list_idea_skills(request, skill_id):
+    """View function lists ideas by the skills they are tagged with."""
+    skill = get_object_or_404(Skill, id=skill_id)
+    ideas = skill.idea.all()
+    context = {
+        'skill_name': skill.skill,
+        'ideas': ideas,
+    }
+    return render(request, 'directory/idea_list.html', context)
+
+def list_idea_materials(request, material_id):
+    """View function lists ideas by the materials they are tagged with."""
+    material = get_object_or_404(Material, id=material_id)
+    ideas = material.idea.all()
+    context = {
+        'material_name': material.material,
+        'ideas': ideas
+    }
+    return render(request, 'directory/idea_list.html', context)
+
+def list_idea_work_type(request, type_id):
+    """View function lists ideas by the type of work they are tagged with."""
+    type = get_object_or_404(WorkType, id=type_id)
+    ideas = type.idea.all()
+    context = {
+        'type_name': type.work_type,
+        'ideas': ideas
+    }
+    return render(request, 'directory/idea_list.html', context)

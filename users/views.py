@@ -1,16 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.urls import reverse
 from django.views.generic import TemplateView
 
-from .forms import UserUpdateForm, SkidUserDetailUpdateForm
-from directory.models import SkidUserDetail
+from .forms import ProfileUpdateForm
+from .models import Profile, Skill
 
 User=get_user_model()
 
-import pprint
 # Create your views here.
 
 @login_required()
@@ -19,7 +18,7 @@ def profile(request, username):
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
         if user:
-            details = SkidUserDetail.objects.filter(username__username=username).first()
+            details = Profile.objects.filter(username__username=username).first()
             context = {
                 'details': details,
                 'user': user
@@ -33,29 +32,32 @@ def profile(request, username):
     except Exception as err:
         return HttpResponse(str(err), status=406)
 
-
-@login_required
+from django.forms.models import model_to_dict
+@login_required()
 def edit_profile(request, username):
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
 
         if request.method == 'POST':
-            user = request.user
-            form = SkidUserDetailUpdateForm(request.POST, instance=user)
+            form = ProfileUpdateForm(
+                request.POST, 
+                instance=request.user.profile,
+                )
 
             if form.is_valid():
-                # user_form = form.save()
                 profile = form.save(commit=False)
-                profile.user = user
+                profile.user = request.user
                 profile.save()
-                breakpoint()
-
                 return redirect('users:profile', profile.username)
-                # return HttpResponseRedirect(reverse(''))
 
-        if user:
-            form = SkidUserDetailUpdateForm(instance=user)
+        elif user:
+            # form = ProfileUpdateForm(instance=user)
+            qs = Profile.objects.filter(title=item.title)
+            existing_data = {
+
+            }
+            form = ProfileUpdateForm(initial=existing_data)
             context = {
                 'form':form
             }
@@ -66,6 +68,10 @@ def edit_profile(request, username):
     
     except Exception as err:
         return HttpResponse(str(err), status=406)
+
+# @login_required
+# def profile(request):
+#     return render(request, 'users/profile.html')
 
 
 class UserDenied(TemplateView):

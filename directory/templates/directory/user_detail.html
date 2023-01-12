@@ -3,35 +3,36 @@
 
 {% block content %}
     <div>
-        <h1>{{ sud.first_name }} {{ sud.last_name }}</h1>
+        <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
         <ul>
-            {% if sud.business_name %}<li>Business Name: {{ sud.business_name }}</li>{% endif %}
-            <li>Email: {{ sud.email_address }}</li>
-            <li>Phone: {{ sud.phone_number }}</li>
+            {% if profile.business_name %}<li>Business Name: {{ profile.business_name }}</li>{% endif %}
+            <li>Email: {{ profile.email_address }}</li>
+            <li>Phone: {{ profile.phone_number }}</li>
             <li>
                 Address:<br>
-                {{ sud.address }}<br>
-                {{ sud.state_province }}<br> 
-                {{ sud.city }}<br>
-                {{ sud.zip_code }}
-                {{ sud.country }}<br>
+                {{ profile.address }}<br>
+                {{ profile.state_province }}<br> 
+                {{ profile.city }}<br>
+                {{ profile.zip_code }}
+                {{ profile.country }}<br>
             </li>
+            <li>Bio: {{ profile.about }}</li>
             <li>
                 Skills:
-                {% for skill in sud.skills.all %} 
-                <a href="{% url 'directory:skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a>
+                {% for skill in profile.skills.all %} 
+                <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a>
                 {% endfor %}
             </li>
             <li>
                 Materials:
-                {% for material in sud.materials.all %}
-                <a href="{% url 'directory:material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                {% for material in profile.materials.all %}
+                <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
                 {% endfor %}
             </li>
             <li>
                 Type of Work:
-                {% for type in sud.type_of_work.all %}
-                <a href="{% url 'directory:work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                {% for type in profile.type_of_work.all %}
+                <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
                 {% endfor %}
             </li>
         </ul>

@@ -60,19 +60,19 @@
                 <p>
                     Skills:
                     {% for skill in user.skills.all %} 
-                    <a href="{% url 'directory:skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
+                    <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
                     {% endfor %}
                 </p>
                 <p>
                     Materials:
                     {% for material in user.materials.all %}
-                    <a href="{% url 'directory:material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                    <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
                     {% endfor %}
                 </p>
                 <p>
                     Type of Work:
                     {% for type in user.type_of_work.all %}
-                    <a href="{% url 'directory:work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                    <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
                     {% endfor %}
                 </p>
                 
