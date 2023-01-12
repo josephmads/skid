@@ -32,7 +32,7 @@ class WorkType(models.Model):
 
 class Profile(models.Model):    
     """Model representing a users personal information."""
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True)
     business_name = models.CharField(max_length=100, blank=True)
