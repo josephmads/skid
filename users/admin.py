@@ -4,9 +4,10 @@ from .models import Idea, Skill, Material, WorkType, Profile
 # Register your models here.
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ( 
+    list_display = (
+        'user_id', 
         'business_name', 
-        'email_address',
+        'email_public',
     )
     
 

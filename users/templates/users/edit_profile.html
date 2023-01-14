@@ -2,13 +2,18 @@
 
 
 {% block content %}
-<h1>Edit Profile Details</h1>
 <div class="container">
 <form action="" method="post">
     {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
+    <legend class="border-bottom mb-4">Account Information:</legend>
+    <div class="container">
+        <table>{{ user_form.as_table }}</table>
+    </div>
+    <div class="spacer"></div>
+    <legend class="border-bottom mb-4">Profile Information:</legend>
+    <div class="container">
+        <table>{{ profile_form.as_table }}</table>
+    </div>
     <input type="submit" value="Save">
 </form>
 </div>

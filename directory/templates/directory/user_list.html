@@ -8,12 +8,12 @@
         {% if skill_name %}
             <h2>Skill: {{ skill_name }}</h2>
 
-            {% for user in users %}
+            {% for user in combined_user_list %}
                 <h4>
                     {% if user.business_name %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.business_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
                     {% else %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
                     {% endif %}
                 </h4>
             {% endfor %}
@@ -21,12 +21,12 @@
         {% elif material_name %}
             <h2>Material: {{ material_name }}</h2>
             
-            {% for user in users %}
+            {% for user in combined_user_list %}
                 <h4>
                     {% if user.business_name %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.business_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
                     {% else %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
                     {% endif %}
                 </h4>
             {% endfor %}
@@ -34,12 +34,12 @@
         {% elif type_name %}
             <h2>Type of Work: {{ type_name }}</h2>
 
-            {% for user in users %}
+            {% for user in combined_user_list %}
                 <h4>
                     {% if user.business_name %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.business_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
                     {% else %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
                     {% endif %}
                 </h4>
             {% endfor %}
@@ -47,16 +47,18 @@
         {% else %}
             <h2>All Users</h2>
         {% endif %}
-
+        
         <div class="container">
-            {% for user in user_list %}
+            {% for user in combined_user_list %}
                 <h4>
                     {% if user.business_name %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.business_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
                     {% else %}
-                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
+                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
                     {% endif %}
                 </h4>
+                
+            
                 <p>
                     Skills:
                     {% for skill in user.skills.all %} 
@@ -71,11 +73,10 @@
                 </p>
                 <p>
                     Type of Work:
-                    {% for type in user.type_of_work.all %}
+                    {% for type in user.work_type.all %}
                     <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
                     {% endfor %}
                 </p>
-                
             {% endfor %}
         </div>
     </div>

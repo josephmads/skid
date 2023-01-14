@@ -5,10 +5,9 @@ app_name = 'directory'
 
 urlpatterns = [
     path('', views.directory, name='directory'),
-    path('users/', views.UserListView.as_view(), name='users'),
-    path('<username>/', views.user_detail_view, name='user_detail'),
-    path('ideas/', views.IdeaListView.as_view(), name='ideas'),
-    # path('ideas/', views.idea_list, name='ideas'),
+    path('users/', views.user_list_view, name='users'),
+    path('users/<username>/', views.user_detail_view, name='user_detail'),
+    path('ideas/', views.idea_list, name='ideas'),
     path('ideas/<slug:slug>/', views.idea_detail, name='idea_detail'),
     path('user-skills/<int:skill_id>', views.list_skills, name='user_skill'),
     path('user-materials/<int:material_id>', views.list_materials, name='user_material'),

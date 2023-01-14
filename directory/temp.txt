@@ -1,5 +1,0 @@
-templates/directory/user_detail.html:        <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
-templates/directory/user_list.html:                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
-templates/directory/user_list.html:                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
-templates/directory/user_list.html:                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
-templates/directory/user_list.html:                        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}, {{ user.first_name }}</a>
