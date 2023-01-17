@@ -2,83 +2,108 @@
 
 
 {% block content %}
-    <div>
-        <h1>Directory of Users</h1>
+<div class="container">
+    <h1>Directory of Users</h1>
 
-        {% if skill_name %}
-            <h2>Skill: {{ skill_name }}</h2>
+    {% if skill_name %}
+        <h2>Skill: {{ skill_name }}</h2>
 
-            {% for user in combined_user_list %}
-                <h4>
-                    {% if user.business_name %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
-                    {% else %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
-                    {% endif %}
-                </h4>
-            {% endfor %}
+        {% for user in users %}
+            <h4>
+                {% if user.business_name %}
+                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.business_name }}</a>
+                {% else %}
+                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                {% endif %}
+            </h4>
+        {% endfor %}
 
-        {% elif material_name %}
-            <h2>Material: {{ material_name }}</h2>
-            
-            {% for user in combined_user_list %}
-                <h4>
-                    {% if user.business_name %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
-                    {% else %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
-                    {% endif %}
-                </h4>
-            {% endfor %}
-            
-        {% elif type_name %}
-            <h2>Type of Work: {{ type_name }}</h2>
-
-            {% for user in combined_user_list %}
-                <h4>
-                    {% if user.business_name %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
-                    {% else %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
-                    {% endif %}
-                </h4>
-            {% endfor %}
-
-        {% else %}
-            <h2>All Users</h2>
-        {% endif %}
+    {% elif material_name %}
+        <h2>Material: {{ material_name }}</h2>
         
+        {% for user in users %}
+            <h4>
+                {% if user.business_name %}
+                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.business_name }}</a>
+                {% else %}
+                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                {% endif %}
+            </h4>
+        {% endfor %}
+        
+    {% elif type_name %}
+        <h2>Type of Work: {{ type_name }}</h2>
+
+        {% for user in users %}
+            <h4>
+                {% if user.business_name %}
+                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.business_name }}</a>
+                {% else %}
+                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                {% endif %}
+            </h4>
+        {% endfor %}
+
+    {% else %}
+        <h2>All Users</h2>
         <div class="container">
-            {% for user in combined_user_list %}
-                <h4>
-                    {% if user.business_name %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.business_name }}</a>
-                    {% else %}
-                        <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
-                    {% endif %}
-                </h4>
-                
-            
-                <p>
-                    Skills:
-                    {% for skill in user.skills.all %} 
-                    <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
-                    {% endfor %}
-                </p>
-                <p>
-                    Materials:
-                    {% for material in user.materials.all %}
-                    <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
-                    {% endfor %}
-                </p>
-                <p>
-                    Type of Work:
-                    {% for type in user.work_type.all %}
-                    <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
-                    {% endfor %}
-                </p>
+            {% for user in users %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
+                        </h5>
+                        {% if user.profile.business_name %}
+                        <h6 class="card-subtitle mb-2 text-muted">{{ user.profile.business_name }}</h6>
+                        {%  endif %}
+                        <ul style="list-style-type:none;">
+                            <li>
+                                Skills:
+                                {% for skill in user.profile.skills.all %} 
+                                <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
+                                {% endfor %}
+                            </li>
+                            <li>
+                                Materials:
+                                {% for material in user.profile.materials.all %}
+                                <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                                {% endfor %}
+                            </li>
+                            <li>
+                                Type of Work:
+                                {% for type in user.profile.type_of_work.all %}
+                                <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="spacer"></div>
             {% endfor %}
         </div>
-    </div>
-{% endblock content %}
+    {% endif %}
     
+</div>
+
+<!-- Pagination -->
+<div class="pagination">
+    <span class="step-links">
+        {% if users.has_previous %}
+            <a class="btn-primary btn-sm" href="?page=1">&laquo; first</a>
+            <a class="btn-primary btn-sm" href="?page={{ users.previous_page_number }}">previous</a>
+        {% endif %}
+  
+        <span class="current text-muted">
+            Page {{ users.number }} of {{ users.paginator.num_pages }}
+        </span>
+  
+        {% if users.has_next %}
+            <a class="btn-primary btn-sm" href="?page={{ users.next_page_number }}">next</a>
+            <a class="btn-primary btn-sm" href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
+{% endblock content %}
+
+

@@ -2,37 +2,49 @@
 
 
 {% block content %}
-<div class="container-sm">
-    <h3>{{ idea.title }}</h3>
-    <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.username %}">{{ idea.username }}</a></h5>
-    
+
+{% if user.is_authenticated %}
     <div class="container">
-        Skills:
-        {% for skill in idea.skills.all %}
-            <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">
-            {{ skill }}
-            </a>
-        {% endfor %}
-        <br>
-        Materials:
-        {% for material in idea.materials.all %}
-            <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">
-            {{ material }}
-            </a>
-        {% endfor %}
-        <br>
-        Type of Work:
-        {% for type in idea.type_of_work.all %}
-            <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">
-            {{ type }}
-            </a>
-        {% endfor %}
+        <h3>{{ idea.title }}</h3>
+        <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.author %}">{{ idea.author }}</a></h5>
+        
+        <div class="container">
+            Skills:
+            {% for skill in idea.skills.all %}
+                <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">
+                {{ skill }}
+                </a>
+            {% endfor %}
+            <br>
+            Materials:
+            {% for material in idea.materials.all %}
+                <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">
+                {{ material }}
+                </a>
+            {% endfor %}
+            <br>
+            Type of Work:
+            {% for type in idea.type_of_work.all %}
+                <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">
+                {{ type }}
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="spacer"></div>
+        <p class="text-muted small">Published: {{ idea.published }} | Updated: {{ idea.updated }}</p>
+        <div class="border-bottom mb-4"></div>
+
+        <p class="word-wrap" style="width: 80rem;"> {{ idea.text }}</p>
+        <div class="spacer"></div>
+        <a href="{% url 'directory:ideas' %}" class="btn btn-primary">Go Back</a>
     </div>
-    <div class="spacer"></div>
-    <p class="text-muted small">{{ idea.published }}</p>
-    <p class="word-wrap" style="width: 80rem;"> {{ idea.text | safe }}</p>
-    <div class="spacer"></div>
-    <a href="{% url 'directory:ideas' %}" class="btn btn-primary">Go Back</a>
-</div>
+{% else %}
+    <div class="container">
+        <h5>Must be logged in to view this page.</h5>
+    </div>
+{% endif %}
+    
+
 {% endblock content %}
     

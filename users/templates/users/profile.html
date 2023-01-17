@@ -25,8 +25,8 @@
                         <li>
                             <strong>Address:</strong><br>
                             {{ profile.address }}<br>
-                            {{ profile.state_province }}<br> 
                             {{ profile.city }}<br>
+                            {{ profile.state_province }}<br>
                             {{ profile.zip_code }}
                             {{ profile.country }}<br>
                         </li>
@@ -36,31 +36,36 @@
                         <li>
                             <strong>Skills:</strong>
                             {% for skill in profile.skills.all %} 
-                            <p class="badge">{{ skill }}</p>
+                            {{ skill }} •
                             {% endfor %}
                         </li>   
                         <li>
                             <strong>Materials:</strong>
                             {% for material in profile.materials.all %}
-                            <p class="badge">{{ material }}</p>
+                                {{ material }} •
                             {% endfor %}
                         </li>
                         <li>
                             <strong>Type of Work:</strong>
                             {% for type in profile.type_of_work.all %}
-                            <p class="badge">{{ type }}</p>
+                            {{ type }} •
                             {% endfor %}
                         </li>
                     </ul>
                 </div>
         </div>
 
+        <!-- Sidebar -->
         <div class="row justify-content-end">
             <div class="col-4">
                 <div class="sidenav">
                     <a class="nav-link btn btn-secondary" href="{% url 'users:edit_profile' user.username %}">Edit Information</a>
-                    <a class="nav-link btn btn-secondary" href="#">Create Idea</a>
-                    <a class="nav-link btn btn-secondary" href="#">View Ideas</a>
+                    <a class="nav-link btn btn-secondary" href="{% url 'users:create_idea' user.username %}">Create Idea</a>
+                    <a class="nav-link btn btn-secondary" href="{% url 'users:view_ideas' user.username %}">View Ideas</a>
+                    <li class="nav-link">- For All Users -</li>
+                    <a class="nav-link btn btn-info" href="{% url 'users:add_skill' %}">Add Skills</a>
+                    <a class="nav-link btn btn-info" href="{% url 'users:add_material' %}">Add Materials</a>
+                    <a class="nav-link btn btn-info" href="{% url 'users:add_work_type' %}">Add Work Types</a>
                 </div>
             </div>
         </div>

@@ -2,6 +2,8 @@
 
 
 {% block content %}
+
+{% if user.is_authenticated %}
     <div>
         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
         <ul>
@@ -37,5 +39,12 @@
             </li>
         </ul>
     </div>
+{% else %}
+    <div class="container">
+        <h5>Must be logged in to view this page.</h5>
+    </div>
+{% endif %}
+    
+
 {% endblock content %}
     

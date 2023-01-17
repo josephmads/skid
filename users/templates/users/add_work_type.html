@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-evenly">
+        <div class="col-3">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p}}
+                <input class="btn btn-success" type="submit" value="Add">
+                <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.username %}">Return to Profile</a>
+            </form>
+        </div>
+
+        <div class="col-9">
+            <legend class="border-bottom mb-4">Available Work Types:</legend>
+            {% for type in work_types %}
+                {{ type }} •              
+            {% endfor %} 
+        </div>
+    </div>
+</div>
+   
+{% endblock content %}
+    

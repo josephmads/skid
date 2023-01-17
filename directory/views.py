@@ -1,9 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
-from django.views import generic
-
-from itertools import chain
-from django.db.models import Q
 
 from users.models import Idea, Profile, Skill, Material, WorkType
 
@@ -32,38 +29,22 @@ def directory(request):
 
 #USER LIST AND DETAIL
 
-# def user_list_view(request):
-#     users = User.objects.filter(is_staff=False).order_by('-last_name')
-#     profiles = Profile.objects.all()
-#     context = {
-#         'users': users,
-#         'profiles': profiles,
-#     }
-#     return render(request, 'directory/user_list.html', context)
-
-combined_user_list = []
-
 def user_list_view(request):
-    users_not_staff = User.objects.filter(is_staff=False).order_by('-last_name')
-    for user in users_not_staff:
-        profile = Profile.objects.filter(user_id=user.id)
-        skills = Skill.objects.filter(profile__in=profile)
-        materials = Material.objects.filter(profile__in=profile)
-        work_type = WorkType.objects.filter(profile__in=profile)
-        # setattr(user, 'profile', profile)
-        user.profile = profile
-        user.skills = skills
-        user.materials = materials
-        user.work_type = work_type
-        combined_user_list.append(user)
+    """View function lists all non-staff users and paginates results."""
+    all_users = User.objects.filter(is_staff=False).order_by('last_name')
+    paginator = Paginator(all_users, 5)
+    page_number = request.GET.get('page')
 
-    # breakpoint()
+    users = paginator.get_page(page_number)
 
-    context = {'combined_user_list': combined_user_list}
+    context = {
+        'users': users,
+    }
     return render(request, 'directory/user_list.html', context)
 
 def user_detail_view(request, username):
-    user = User.objects.filter(username=username).first()
+    """View function diplays details of user."""
+    user = User.objects.filter(username=username)
     profile = Profile.objects.filter(user_id__username=username).first()
     context = {
         'user': user,
@@ -101,11 +82,16 @@ def list_work_type(request, type_id):
     }
     return render(request, 'directory/user_list.html', context)
 
+
 #IDEA LIST, DETAIL, AND COMMENT
 
-
 def idea_list(request):
-    idea_list = Idea.objects.filter(status='p').order_by('-published')
+    all_ideas = Idea.objects.filter(status='p').order_by('-published')
+    paginator = Paginator(all_ideas, 5)
+    page_number = request.GET.get('page')
+
+    idea_list = paginator.get_page(page_number)
+
     context = {
         'idea_list': idea_list
     }

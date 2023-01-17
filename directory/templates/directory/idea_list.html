@@ -10,7 +10,7 @@
 
         {% for idea in ideas %}
             <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.username }}
+                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
             </h4>
         {% endfor %}
 
@@ -19,7 +19,7 @@
         
         {% for idea in ideas %}
             <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.username }}
+                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
             </h4>
         {% endfor %}
         
@@ -28,7 +28,7 @@
 
         {% for idea in ideas %}
             <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.username }}
+                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
             </h4>
         {% endfor %}
 
@@ -38,29 +38,58 @@
 
     <div class="container">
         {% for idea in idea_list %}
-            <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.username }}
-            </h4>
-            <p>
-                Skills:
-                {% for skill in user.skills.all %} 
-                <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
-                {% endfor %}
-            </p>
-            <p>
-                Materials:
-                {% for material in user.materials.all %}
-                <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
-                {% endfor %}
-            </p>
-            <p>
-                Type of Work:
-                {% for type in user.type_of_work.all %}
-                <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
-                {% endfor %}
-            </p>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">by {{ idea.author }}</h6>
+
+                <p class="card-text">{{ idea.text | truncatechars:50 }}</p>
+                <ul style="list-style-type:none;">
+                    <li>
+                        Skills:
+                        {% for skill in idea.skills.all %} 
+                        <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
+                        {% endfor %}
+                    </li>
+                    <li>
+                        Materials:
+                        {% for material in idea.materials.all %}
+                        <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                        {% endfor %}
+                    </li>
+                    <li>
+                        Type of Work:
+                        {% for type in idea.type_of_work.all %}
+                        <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="spacer"></div>
         {% endfor %}
     </div>
 </div>
+
+<!-- Pagination -->
+<div class="pagination">
+    <span class="step-links">
+        {% if idea_list.has_previous %}
+            <a class="btn-primary btn-sm" href="?page=1">&laquo; first</a>
+            <a class="btn-primary btn-sm" href="?page={{ idea_list.previous_page_number }}">previous</a>
+        {% endif %}
+  
+        <span class="current text-muted">
+            Page {{ idea_list.number }} of {{ idea_list.paginator.num_pages }}
+        </span>
+  
+        {% if idea_list.has_next %}
+            <a class="btn-primary btn-sm" href="?page={{ idea_list.next_page_number }}">next</a>
+            <a class="btn-primary btn-sm" href="?page={{ idea_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
 {% endblock content %}
-    

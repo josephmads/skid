@@ -14,6 +14,10 @@ class Material(models.Model):
     def __str__(self):
         return self.material
 
+    def save(self, *args, **kwargs):
+        self.material = self.material.lower()
+        return super(Material, self).save(*args, **kwargs)
+
 class Skill(models.Model):
     """Model representing the skills a user has."""
     skill = models.CharField(max_length=100, unique=True)
@@ -21,12 +25,20 @@ class Skill(models.Model):
     def __str__(self):
         return self.skill
 
+    def save(self, *args, **kwargs):
+        self.skill = self.skill.lower()
+        return super(Skill, self).save(*args, **kwargs)
+
 class WorkType(models.Model):
     """Model representing the type of work a user can do."""
     work_type = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.work_type
+
+    def save(self, *args, **kwargs):
+        self.work_type = self.work_type.lower()
+        return super(WorkType, self).save(*args, **kwargs)
 
 class Profile(models.Model):    
     """Model representing a users personal information."""
@@ -37,6 +49,7 @@ class Profile(models.Model):
     email_public = models.EmailField(
         'Public Email',
         blank=True,
+        null=True,
         max_length=100, 
         help_text='This email address will be displayed on your public SKID profile.'
         )
@@ -56,9 +69,9 @@ class Profile(models.Model):
         blank=True,
         help_text='eg: Prototype, Production, Made to Order, etc.')
 
-    # def get_absolute_url(self):
-    #     """Returns URL to access a particular user instance."""
-    #     return reverse('directory:user_detail', args=[str(self.user_id)])
+    def get_absolute_url(self):
+        """Returns URL to access a particular user instance."""
+        return reverse('directory:user_detail', args=[str(self.user_id)])
 
     # def __str__(self):
     #     return self.user_id
@@ -66,7 +79,7 @@ class Profile(models.Model):
     
 class Idea(models.Model):
     """Model representing an Idea that a user shares with other others."""
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='idea')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='ideas')
     title = models.CharField(max_length=140)
     slug = models.SlugField(max_length=140, default='', null=True, blank=True, unique=True)
     text = models.TextField()
@@ -105,7 +118,7 @@ class Idea(models.Model):
 
     def __str__(self):
         """String for representing the Idea."""
-        return f'{self.title} - by, {self.username}'
+        return self.title
 
     def get_absolute_url(self):
         return reverse('directory:idea_detail', kwargs={'slug': self.slug})

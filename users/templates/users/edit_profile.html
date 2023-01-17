@@ -14,7 +14,8 @@
     <div class="container">
         <table>{{ profile_form.as_table }}</table>
     </div>
-    <input type="submit" value="Save">
+    <input class="btn btn-success" type="submit" value="Save">
+    <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.username %}">Cancel</a>
 </form>
 </div>
 {% endblock content %}
