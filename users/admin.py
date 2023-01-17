@@ -4,17 +4,15 @@ from .models import Idea, Skill, Material, WorkType, Profile
 # Register your models here.
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ( 
-        'first_name', 
-        'last_name', 
+    list_display = (
+        'user_id', 
         'business_name', 
-        'email_address',
+        'email_public',
     )
-    search_fields = ['first_name', 'last_name']
+    
 
 class IdeaAdmin(admin.ModelAdmin):
     list_display = (
-        'username',
         'title',
         'published',
         'updated',

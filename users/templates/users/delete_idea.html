@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+
+<legend class="border-bottom mb-4">Delete Idea:</legend>
+
+<form method="POST">
+  {% csrf_token %}
+  <p>Are you sure that you want to delete <strong>"{{ idea_data.title }}"</strong>?</p>
+  <div>
+    <button class="btn btn-danger" type="submit">Delete</button>
+    <a class="btn btn-secondary btn-sm" href="{% url 'users:view_ideas' user.username %}">Cancel</a>
+  </div>
+</form>
+
+{% endblock content %}

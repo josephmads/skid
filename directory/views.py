@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
-from django.views import generic
 
 from users.models import Idea, Profile, Skill, Material, WorkType
+
+User=get_user_model()
 
 # Create your views here.
 
@@ -26,23 +29,33 @@ def directory(request):
 
 #USER LIST AND DETAIL
 
-class UserListView(generic.ListView):
-    model = Profile
-    template_name = 'directory/user_list.html'
-    context_object_name = 'user_list'
-    ordering = ['last_name']
+def user_list_view(request):
+    """View function lists all non-staff users and paginates results."""
+    all_users = User.objects.filter(is_staff=False).order_by('last_name')
+    paginator = Paginator(all_users, 5)
+    page_number = request.GET.get('page')
+
+    users = paginator.get_page(page_number)
+
+    context = {
+        'users': users,
+    }
+    return render(request, 'directory/user_list.html', context)
 
 def user_detail_view(request, username):
-    profile = Profile.objects.filter(username__username=username).first() #FIX ME Write Test for when no SUD exists
+    """View function diplays details of user."""
+    user = User.objects.filter(username=username)
+    profile = Profile.objects.filter(user_id__username=username).first()
     context = {
-        'profile': profile
+        'user': user,
+        'profile': profile,
     }
     return render(request, 'directory/user_detail.html', context)
 
 def list_skills(request, skill_id):
     """View function lists users by the skills they are tagged with."""
     skill = get_object_or_404(Skill, id=skill_id)
-    users = skill.users.all()
+    users = skill.profile.all()
     context = {
         'skill_name': skill.skill,
         'users': users,
@@ -52,7 +65,7 @@ def list_skills(request, skill_id):
 def list_materials(request, material_id):
     """View function lists users by the materials they are tagged with."""
     material = get_object_or_404(Material, id=material_id)
-    users = material.users.all()
+    users = material.profile.all()
     context = {
         'material_name': material.material,
         'users': users
@@ -62,27 +75,26 @@ def list_materials(request, material_id):
 def list_work_type(request, type_id):
     """View function lists users by the type of work they are tagged with."""
     type = get_object_or_404(WorkType, id=type_id)
-    users = type.users.all()
+    users = type.profile.all()
     context = {
         'type_name': type.work_type,
         'users': users
     }
     return render(request, 'directory/user_list.html', context)
 
+
 #IDEA LIST, DETAIL, AND COMMENT
 
-class IdeaListView(generic.ListView):
-    # queryset = Idea.objects.filter(status='p').order_by('-published')
-    model = Idea
-    template_name = 'directory/idea_list.html'
-    context_object_name = 'idea_list'
-
 def idea_list(request):
-    idea_list = Idea.objects.filter(status='p').order_by('-published')
+    all_ideas = Idea.objects.filter(status='p').order_by('-published')
+    paginator = Paginator(all_ideas, 5)
+    page_number = request.GET.get('page')
+
+    idea_list = paginator.get_page(page_number)
+
     context = {
         'idea_list': idea_list
     }
-    breakpoint()
     return render(request, 'directory/idea_list.html', context)
 
 def idea_detail(request, slug):

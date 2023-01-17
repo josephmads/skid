@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <legend class="border-bottom mb-4">Idea:</legend>
+            <div class="container">
+                <table>{{ form.as_table }}</table>
+            </div>
+            <input class="btn btn-success" type="submit" value="Save">
+            <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.username %}">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}
+    

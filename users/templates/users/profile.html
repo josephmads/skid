@@ -1,46 +1,74 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-<div>
-    <legend class="border-bottom mb-4">Profile Information:</legend>
-        <h1>{{ user.username }}</h1>
-        <div>
-            <h2>{{ details.first_name }} {{ details.last_name }}</h2>
-            <ul>
-                <li>Business Name: {{ details.business_name }}</li>
-                <li>Email: {{ details.email_address }}</li>
-                <li>Phone: {{ details.phone_number }}</li>
-                <li>
-                    Address:<br>
-                    {{ details.address }}<br>
-                    {{ details.state_province }}<br> 
-                    {{ details.city }}<br>
-                    {{ details.zip_code }}
-                    {{ details.country }}<br>
-                </li>
-                <li>Bio: {{ details.bio }}</li>
-                <li>
-                    Skills:
-                    {% for skill in details.skills.all %} 
-                    <p class="badge">{{ skill }}</p>
-                    {% endfor %}
-                </li>   
-                <li>
-                    Materials:
-                    {% for material in details.materials.all %}
-                    <p class="badge">{{ material }}</p>
-                    {% endfor %}
-                </li>
-                <li>
-                    Type of Work:
-                    {% for type in details.type_of_work.all %}
-                    <p class="badge">{{ type }}</p>
-                    {% endfor %}
-                </li>
-            </ul>
+<div class="container">
+    <div class="row justify-content-start">
+        <div class="col-10">
+
+            <legend class="border-bottom mb-4">Account Information:</legend>
+                <div>
+                    <ul style="list-style-type:none;">
+                        <li><strong>Username:</strong> {{ user.username }}</li>
+                        <li><strong>First Name:</strong> {{ user.first_name }}</li>
+                        <li><strong>Last Name:</strong>  {{ user.last_name }}</li>
+                        <li><strong>Account Email:</strong> {{ user.email }}</li>
+                    </ul>
+                </div>    
+            
+            <legend class="border-bottom mb-4">Profile Information:</legend>
+                <div>
+                    <ul style="list-style-type:none;">
+                        <li><strong>Business Name:</strong> {{ profile.business_name }}</li>
+                        <li><strong>Public Email:</strong> {{ profile.email_public }}</li>
+                        <li><strong>Phone:</strong> {{ profile.phone_number }}</li>
+                        <li>
+                            <strong>Address:</strong><br>
+                            {{ profile.address }}<br>
+                            {{ profile.city }}<br>
+                            {{ profile.state_province }}<br>
+                            {{ profile.zip_code }}
+                            {{ profile.country }}<br>
+                        </li>
+                        <br>
+                        <li><strong>About:</strong> {{ profile.about }}</li>
+                        <br>
+                        <li>
+                            <strong>Skills:</strong>
+                            {% for skill in profile.skills.all %} 
+                            {{ skill }} •
+                            {% endfor %}
+                        </li>   
+                        <li>
+                            <strong>Materials:</strong>
+                            {% for material in profile.materials.all %}
+                                {{ material }} •
+                            {% endfor %}
+                        </li>
+                        <li>
+                            <strong>Type of Work:</strong>
+                            {% for type in profile.type_of_work.all %}
+                            {{ type }} •
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
         </div>
-    <div>
-        <a class="btn btn-secondary" href="{% url 'users:edit_profile' user.username %}">Edit Profile</a>
+
+        <!-- Sidebar -->
+        <div class="row justify-content-end">
+            <div class="col-4">
+                <div class="sidenav">
+                    <a class="nav-link btn btn-secondary" href="{% url 'users:edit_profile' user.username %}">Edit Information</a>
+                    <a class="nav-link btn btn-secondary" href="{% url 'users:create_idea' user.username %}">Create Idea</a>
+                    <a class="nav-link btn btn-secondary" href="{% url 'users:view_ideas' user.username %}">View Ideas</a>
+                    <li class="nav-link">- For All Users -</li>
+                    <a class="nav-link btn btn-info" href="{% url 'users:add_skill' %}">Add Skills</a>
+                    <a class="nav-link btn btn-info" href="{% url 'users:add_material' %}">Add Materials</a>
+                    <a class="nav-link btn btn-info" href="{% url 'users:add_work_type' %}">Add Work Types</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

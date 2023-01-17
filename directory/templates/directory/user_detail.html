@@ -2,11 +2,13 @@
 
 
 {% block content %}
+
+{% if user.is_authenticated %}
     <div>
-        <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
         <ul>
             {% if profile.business_name %}<li>Business Name: {{ profile.business_name }}</li>{% endif %}
-            <li>Email: {{ profile.email_address }}</li>
+            <li>Email: {{ profile.email_public }}</li>
             <li>Phone: {{ profile.phone_number }}</li>
             <li>
                 Address:<br>
@@ -37,5 +39,12 @@
             </li>
         </ul>
     </div>
+{% else %}
+    <div class="container">
+        <h5>Must be logged in to view this page.</h5>
+    </div>
+{% endif %}
+    
+
 {% endblock content %}
     
