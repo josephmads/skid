@@ -147,5 +147,9 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID=1
 
+ACCOUNT_FORMS = {
+'signup': 'users.forms.CustomSignupForm',
+}
+
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_EMAIL_VERIFICATION = 'none' 
