@@ -14,7 +14,7 @@ The goal of this project was to create two directories:
 
 Users can sort both the USERS directory and the IDEAS by the *Skill*, *Material*, or *Type of Work* that they are looking for.
 
-## TDOD
+## TODO
 
 *This project is still in progress. I will continue to add the following features so that SKID can be useful of a website as possible.*
 
