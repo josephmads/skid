@@ -15,7 +15,7 @@ def home(request):
 def directory(request):
     """
     View function landing page for the directory side of the site.
-    Lists links to filter users.
+    Lists links to filter users and ideas.
     """
     skills = Skill.objects.all()
     materials = Material.objects.all()
@@ -86,6 +86,7 @@ def list_work_type(request, type_id):
 #IDEA LIST, DETAIL, AND COMMENT
 
 def idea_list(request):
+    """View function lists all ideas and paginates results."""
     all_ideas = Idea.objects.filter(status='p').order_by('-published')
     paginator = Paginator(all_ideas, 5)
     page_number = request.GET.get('page')
@@ -98,6 +99,7 @@ def idea_list(request):
     return render(request, 'directory/idea_list.html', context)
 
 def idea_detail(request, slug):
+    """View function displays details of ideas."""
     idea = Idea.objects.get(slug=slug)
     context = {
         'idea': idea,
@@ -133,3 +135,4 @@ def list_idea_work_type(request, type_id):
         'ideas': ideas
     }
     return render(request, 'directory/idea_list.html', context)
+    

@@ -17,6 +17,7 @@ class UserDenied(TemplateView):
 
 @login_required()
 def profile(request, username):
+    """View function displays user profile."""
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
@@ -30,7 +31,7 @@ def profile(request, username):
             return render(request, 'users/profile.html', context=context)
 
         # return redirect('users:user_denied')
-        raise Exception(redirect('users:user_denied'))
+        raise Exception("You don't belong here. GO AWAY!")
     
     except Exception as err:
         return HttpResponse(str(err), status=406)
@@ -38,6 +39,10 @@ def profile(request, username):
 
 @login_required()
 def edit_profile(request, username):
+    """
+    View function displays form to edit user profile. Dynamically
+    prepopulates the form with previously saved data.
+    """
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
@@ -80,6 +85,10 @@ def edit_profile(request, username):
 
 @login_required
 def create_idea(request, username):
+    """
+    View function displays form for user to create Idea. Prepopulates 
+    'author' field to connect Idea to user.
+    """
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
@@ -113,6 +122,10 @@ def create_idea(request, username):
 
 @login_required
 def edit_idea(request, username, slug):
+    """
+    View function displays form to edit Idea. Dynamically prepopulates form
+    with previously saved data.
+    """
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
@@ -145,8 +158,10 @@ def edit_idea(request, username, slug):
     except Exception as err:
         return HttpResponse(str(err), status=406)
 
+
 @login_required
 def delete_idea(request, username, slug):
+    """View function displays form to allow user to delete Idea."""
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
@@ -171,8 +186,10 @@ def delete_idea(request, username, slug):
     except Exception as err:
         return HttpResponse(str(err), status=406)
 
+
 @login_required
 def view_ideas(request, username):
+    """View function displays table of users Ideas."""
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId, username=username).first()
@@ -185,13 +202,15 @@ def view_ideas(request, username):
             }
             return render(request, 'users/view_ideas.html', context=context)
 
-        raise Exception(f"You shouldn't be here.")
+        raise Exception("You don't belong here. GO AWAY!")
     
     except Exception as err:
         return HttpResponse(str(err), status=406)
 
+
 @login_required
 def add_skill(request):
+    """View function displays form for user to add Skill to table of skills."""
     skills = Skill.objects.all().order_by('skill')
     form = SkillForm(request.POST)
 
@@ -210,8 +229,12 @@ def add_skill(request):
 
         return render(request, 'users/add_skill.html', context=context)
 
+
 @login_required
 def add_material(request):
+    """
+    View function displays form for user to add Material to table of materials.
+    """
     materials = Material.objects.all().order_by('material')
     form = MaterialForm(request.POST)
 
@@ -230,8 +253,13 @@ def add_material(request):
 
         return render(request, 'users/add_material.html', context=context)
 
+
 @login_required
 def add_work_type(request):
+    """
+    View function displays form for user to add Work Type to table of 
+    work types.
+    """
     work_types = WorkType.objects.all().order_by('work_type')
     form = WorkTypeForm(request.POST)
 

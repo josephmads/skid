@@ -26,18 +26,29 @@ class TagModelsTest(TestCase):
         work_type = WorkType.objects.get(id=1)
         field_label = work_type._meta.get_field('work_type').verbose_name
         self.assertEqual(field_label, 'work type')
+        
 
 class ProfileModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Profile.objects.create(
+        User.objects.create(
             username='testertim',
             first_name='Tim',
             last_name='Timons',
-            email_address='tim.timons@test.test',
+            email='tim.timons@test.test',
         )
 
-    def test_get_absolute_url_for_slug(self):
+        Profile.objects.filter(id=1).update(
+            business_name="Tim's Testing Inc."
+        )
+
+    def test_get_absolute_url_for_Profile(self):
         skid_user = Profile.objects.get(id=1)
-        self.assertEqual(skid_user.get_absolute_url(), '/directory/testertim/')
+        self.assertEqual(skid_user.get_absolute_url(), '/directory/users/testertim/')
+    
+    def test_user_profile_extension(self):
+        
+        user = User.objects.get(id=1)
+        self.assertEqual(user.first_name, "Tim")
+        self.assertEqual(user.profile.business_name, "Tim's Testing Inc.")

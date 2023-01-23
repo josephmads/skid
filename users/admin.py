@@ -9,7 +9,6 @@ class ProfileAdmin(admin.ModelAdmin):
         'business_name', 
         'email_public',
     )
-    
 
 class IdeaAdmin(admin.ModelAdmin):
     list_display = (
