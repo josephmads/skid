@@ -30,4 +30,9 @@ class UserListViewTest(TestCase):
     def test_user_list_template_content(self):
         response = self.client.get(reverse('directory:users'))
         self.assertContains(response, "<h2>All Users</h2>")
+        self.assertContains(response, "tim")
+        self.assertContains(response, "tina")
         self.assertContains(response, "dj")
+        self.assertContains(response, "jim")
+        self.assertContains(response, "joe")
+        self.assertContains(response, "pablo")
