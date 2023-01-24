@@ -12,9 +12,6 @@ User=get_user_model()
 
 # Create your views here.
 
-class UserDenied(TemplateView):
-    template_name = 'user_denied.html'
-
 @login_required()
 def profile(request, username):
     """View function displays user profile."""
@@ -28,14 +25,16 @@ def profile(request, username):
                 'profile': profile,
                 'user': user,
             }
-            return render(request, 'users/profile.html', context=context)
+            return render(request, 'users/profile.html', context)
 
-        # return redirect('users:user_denied')
-        raise Exception("You don't belong here. GO AWAY!")
+        raise Exception("users/views.py profile()")
     
     except Exception as err:
-        return HttpResponse(str(err), status=406)
-
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
+        
 
 @login_required()
 def edit_profile(request, username):
@@ -77,10 +76,13 @@ def edit_profile(request, username):
                 }
                 return render(request, 'users/edit_profile.html', context=context)
 
-        raise Exception("You don't belong here. GO AWAY!")
+        raise Exception("users/views.py edit_profile()")
     
     except Exception as err:
-        return HttpResponse(str(err), status=406)
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
 
 
 @login_required
@@ -114,10 +116,13 @@ def create_idea(request, username):
                 }
                 return render(request, 'users/create_idea.html', context=context)
 
-        raise Exception("You don't belong here. GO AWAY!")
+        raise Exception("users/views.py create_idea()")
     
     except Exception as err:
-        return HttpResponse(str(err), status=406)
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
 
 
 @login_required
@@ -153,10 +158,13 @@ def edit_idea(request, username, slug):
 
                 return render(request, 'users/edit_idea.html', context=context)
         
-        raise Exception("You don't belong here. GO AWAY!")
+        raise Exception("users/views.py edit_idea()")
     
     except Exception as err:
-        return HttpResponse(str(err), status=406)
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
 
 
 @login_required
@@ -181,10 +189,13 @@ def delete_idea(request, username, slug):
                 
                 return render(request, 'users/delete_idea.html', context)
         
-        raise Exception("You don't belong here. GO AWAY!")
+        raise Exception("users/views.py delete_idea()")
     
     except Exception as err:
-        return HttpResponse(str(err), status=406)
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
 
 
 @login_required
@@ -202,32 +213,46 @@ def view_ideas(request, username):
             }
             return render(request, 'users/view_ideas.html', context=context)
 
-        raise Exception("You don't belong here. GO AWAY!")
+        raise Exception("users/views.py view_ideas()")
     
     except Exception as err:
-        return HttpResponse(str(err), status=406)
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
 
 
 @login_required
 def add_skill(request):
     """View function displays form for user to add Skill to table of skills."""
-    skills = Skill.objects.all().order_by('skill')
-    form = SkillForm(request.POST)
+    try:
+        skills = Skill.objects.all().order_by('skill')
+        form = SkillForm(request.POST)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Skill added.')
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Skill added.')
 
-        return redirect('users:add_skill')
+            return redirect('users:add_skill')
 
-    elif request.method == 'GET':
-        context = {
-            'skills': skills,
-            'form': form,
-        }
+        elif request.method == 'GET':
+            context = {
+                'skills': skills,
+                'form': form,
+            }
 
-        return render(request, 'users/add_skill.html', context=context)
+            return render(request, 'users/add_skill.html', context=context)
+        
+        raise Exception("users/views.py add_skill()")
+    
+    except Exception as err:
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
+    
+    
 
 
 @login_required
@@ -235,23 +260,32 @@ def add_material(request):
     """
     View function displays form for user to add Material to table of materials.
     """
-    materials = Material.objects.all().order_by('material')
-    form = MaterialForm(request.POST)
+    try:
+        materials = Material.objects.all().order_by('material')
+        form = MaterialForm(request.POST)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Material added.')
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Material added.')
 
-        return redirect('users:add_material')
+            return redirect('users:add_material')
 
-    elif request.method == 'GET':
-        context = {
-            'materials': materials,
-            'form': form,
-        }
+        elif request.method == 'GET':
+            context = {
+                'materials': materials,
+                'form': form,
+            }
 
-        return render(request, 'users/add_material.html', context=context)
+            return render(request, 'users/add_material.html', context=context)
+
+        raise Exception("users/views.py add_material()")
+    
+    except Exception as err:
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')
 
 
 @login_required
@@ -260,20 +294,29 @@ def add_work_type(request):
     View function displays form for user to add Work Type to table of 
     work types.
     """
-    work_types = WorkType.objects.all().order_by('work_type')
-    form = WorkTypeForm(request.POST)
+    try:
+        work_types = WorkType.objects.all().order_by('work_type')
+        form = WorkTypeForm(request.POST)
 
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Work type added.')
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Work type added.')
 
-        return redirect('users:add_work_type')
+            return redirect('users:add_work_type')
 
-    elif request.method == 'GET':
-        context = {
-            'work_types': work_types,
-            'form': form,
-        }
+        elif request.method == 'GET':
+            context = {
+                'work_types': work_types,
+                'form': form,
+            }
 
-        return render(request, 'users/add_work_type.html', context=context)
+            return render(request, 'users/add_work_type.html', context=context)
+
+        raise Exception("users/views.py add_work_type()")
+    
+    except Exception as err:
+        # print("ERROR: ", str(err), file=sys.stderr)
+        print("ERROR: ", str(err))
+        context = {'error': str(err)}
+        return render(request, 'error_page.html', context, content_type='text/html')

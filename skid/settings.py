@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # my apps
     'directory.apps.DirectoryConfig',
     'users.apps.UsersConfig',
+    'phone_field',
 ]
 
 MIDDLEWARE = [

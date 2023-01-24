@@ -3,12 +3,17 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 
+from phone_field import PhoneField
+
 User=get_user_model()
 
 # Create your models here.
 
 class Material(models.Model):
-    """Model representing the materials a user works with."""
+    """
+    Model representing the materials a user works with. Overwrites save 
+    method to make all materials lowercase.
+    """
     material = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
@@ -19,7 +24,10 @@ class Material(models.Model):
         return super(Material, self).save(*args, **kwargs)
 
 class Skill(models.Model):
-    """Model representing the skills a user has."""
+    """
+    Model representing the skills a user has. Overwrites save 
+    method to make all skills lowercase.
+    """
     skill = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
@@ -30,7 +38,10 @@ class Skill(models.Model):
         return super(Skill, self).save(*args, **kwargs)
 
 class WorkType(models.Model):
-    """Model representing the type of work a user can do."""
+    """
+    Model representing the type of work a user can do. Overwrites save 
+    method to make all work types lowercase.
+    """
     work_type = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
@@ -41,7 +52,7 @@ class WorkType(models.Model):
         return super(WorkType, self).save(*args, **kwargs)
 
 class Profile(models.Model):    
-    """Model representing a users personal information."""
+    """Model extending the User model providing more personal information."""
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=100, blank=True)
     email_public = models.EmailField(
@@ -51,7 +62,7 @@ class Profile(models.Model):
         max_length=100, 
         help_text='This email address will be displayed on your public SKID profile.'
         )
-    phone_number = models.CharField(max_length=15, blank=True)
+    phone_number = PhoneField(blank=True)
     address = models.CharField(max_length=150, blank=True)
     city = models.CharField(max_length=150, blank=True)
     state_province = models.CharField('State or Province', max_length=100, blank=True)
@@ -70,10 +81,6 @@ class Profile(models.Model):
     def get_absolute_url(self):
         """Returns URL to access a particular user instance."""
         return reverse('directory:user_detail', args=[str(self.user_id)])
-
-    def __str__(self):
-        return self.user_id
-
     
 class Idea(models.Model):
     """Model representing an Idea that a user shares with other others."""
