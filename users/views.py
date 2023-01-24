@@ -13,9 +13,11 @@ User=get_user_model()
 # BASE VIEWS
 
 class HomePage(TemplateView):
+    """Class based view diplays the SKID homepage."""
     template_name = 'home.html'
 
 class Credits(TemplateView):
+    """Class based view diplays the credits page."""
     template_name = 'credits.html'
 
 # USER APP VIEWS
