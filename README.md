@@ -23,6 +23,7 @@ Users can sort both the USERS directory and the IDEAS by the *Skill*, *Material*
 - Create a more robust search and filtering system for users and ideas.
 - Add comments to Ideas.
 - Add internal messaging system for users.
+- Add Markdown formatting to Ideas
 
 ## Credit
 

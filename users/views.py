@@ -1,15 +1,24 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
 from .forms import *
 from .models import Profile
 
 User=get_user_model()
 
-# Create your views here.
+# BASE VIEWS
+
+class HomePage(TemplateView):
+    template_name = 'home.html'
+
+class Credits(TemplateView):
+    template_name = 'credits.html'
+
+# USER APP VIEWS
 
 @login_required()
 def profile(request, id):

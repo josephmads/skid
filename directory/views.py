@@ -1,17 +1,12 @@
 from django.contrib.auth import get_user_model
-from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render, HttpResponse
-from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404, render
 
 from users.models import Idea, Profile, Skill, Material, WorkType
 
 User=get_user_model()
 
 # Create your views here.
-
-class HomePage(TemplateView):
-    template_name = 'directory/home.html'
  
 def directory(request):
     """
