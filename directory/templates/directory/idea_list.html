@@ -2,75 +2,80 @@
 
 
 {% block content %}
-<div>
+<div class="container">
     <h1>Directory of Ideas</h1>
 
     {% if skill_name %}
+    <div class="container">
         <h2>Skill: {{ skill_name }}</h2>
 
-        {% for idea in ideas %}
-            <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
-            </h4>
-        {% endfor %}
-
-    {% elif material_name %}
-        <h2>Material: {{ material_name }}</h2>
-        
-        {% for idea in ideas %}
-            <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
-            </h4>
-        {% endfor %}
-        
-    {% elif type_name %}
-        <h2>Type of Work: {{ type_name }}</h2>
-
-        {% for idea in ideas %}
-            <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
-            </h4>
-        {% endfor %}
-
-    {% else %}
-        <h2>All Ideas</h2>
-    {% endif %}
-
-    <div class="container">
         {% for idea in idea_list %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>
-                </h5>
-                <h6 class="card-subtitle mb-2 text-muted">by {{ idea.author }}</h6>
-
-                <p class="card-text">{{ idea.text | truncatechars:50 }}</p>
-                <ul style="list-style-type:none;">
-                    <li>
-                        Skills:
-                        {% for skill in idea.skills.all %} 
-                        <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
-                        {% endfor %}
-                    </li>
-                    <li>
-                        Materials:
-                        {% for material in idea.materials.all %}
-                        <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
-                        {% endfor %}
-                    </li>
-                    <li>
-                        Type of Work:
-                        {% for type in idea.type_of_work.all %}
-                        <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
-                        {% endfor %}
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="spacer"></div>
+            <h4>
+                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
+            </h4>
         {% endfor %}
     </div>
+
+    {% elif material_name %}
+    <div class="container">
+        <h2>Material: {{ material_name }}</h2>
+        
+        {% for idea in idea_list %}
+            <h4>
+                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
+            </h4>
+        {% endfor %}
+    </div>
+
+    {% elif type_name %}
+    <div class="container">
+        <h2>Type of Work: {{ type_name }}</h2>
+
+        {% for idea in idea_list %}
+            <h4>
+                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
+            </h4>
+        {% endfor %}
+    </div>
+    
+    {% else %}
+        <h2>All Ideas</h2>
+        <div class="container">
+            {% for idea in idea_list %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">by {{ idea.author }}</h6>
+    
+                    <p class="card-text">{{ idea.text | truncatechars:50 }}</p>
+                    <ul style="list-style-type:none;">
+                        <li>
+                            Skills:
+                            {% for skill in idea.skills.all %} 
+                            <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Materials:
+                            {% for material in idea.materials.all %}
+                            <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                            {% endfor %}
+                        </li>
+                        <li>
+                            Type of Work:
+                            {% for type in idea.type_of_work.all %}
+                            <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
 
 <!-- Pagination -->

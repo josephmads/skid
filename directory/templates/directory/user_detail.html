@@ -5,7 +5,7 @@
 
 {% if user.is_authenticated %}
     <div>
-        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <h1>{{ profile.user_id.first_name }} {{ profile.user_id.last_name }}</h1>
         <ul>
             {% if profile.business_name %}<li>Business Name: {{ profile.business_name }}</li>{% endif %}
             <li>Email: {{ profile.email_public }}</li>

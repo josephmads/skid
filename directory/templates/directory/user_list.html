@@ -6,43 +6,49 @@
     <h1>Directory of Users</h1>
 
     {% if skill_name %}
+    <div class="container">
         <h2>Skill: {{ skill_name }}</h2>
 
         {% for user in users %}
             <h4>
                 {% if user.business_name %}
-                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.business_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.business_name }}</a>
                 {% else %}
-                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
                 {% endif %}
             </h4>
         {% endfor %}
+    </div>
 
     {% elif material_name %}
+    <div class="container">
         <h2>Material: {{ material_name }}</h2>
         
         {% for user in users %}
             <h4>
                 {% if user.business_name %}
-                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.business_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.business_name }}</a>
                 {% else %}
-                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
                 {% endif %}
             </h4>
         {% endfor %}
+    </div>
         
     {% elif type_name %}
+    <div class="container">
         <h2>Type of Work: {{ type_name }}</h2>
 
         {% for user in users %}
             <h4>
                 {% if user.business_name %}
-                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.business_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.business_name }}</a>
                 {% else %}
-                    <a href="{% url 'directory:user_detail' user.user_id.username %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
                 {% endif %}
             </h4>
         {% endfor %}
+    </div>
 
     {% else %}
         <h2>All Users</h2>
@@ -51,7 +57,7 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href="{% url 'directory:user_detail' user.username %}">{{ user.last_name }}, {{ user.first_name }}</a>
+                            <a href="{% url 'directory:user_detail' user.id %}">{{ user.last_name }}, {{ user.first_name }}</a>
                         </h5>
                         {% if user.profile.business_name %}
                         <h6 class="card-subtitle mb-2 text-muted">{{ user.profile.business_name }}</h6>
@@ -82,7 +88,6 @@
             {% endfor %}
         </div>
     {% endif %}
-    
 </div>
 
 <!-- Pagination -->

@@ -6,7 +6,7 @@
 {% if user.is_authenticated %}
     <div class="container">
         <h3>{{ idea.title }}</h3>
-        <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.author %}">{{ idea.author }}</a></h5>
+        <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.author.id %}">{{ idea.author }}</a></h5>
         
         <div class="container">
             Skills:
