@@ -24,4 +24,5 @@ urlpatterns = [
     path('credits/', Credits.as_view(), name='credits'),
     path('directory/', include('directory.urls')),
     path('users/', include('users.urls')),
+    path('api/', include('api.urls')),
 ]
