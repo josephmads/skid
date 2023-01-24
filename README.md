@@ -14,6 +14,25 @@ The goal of this project was to create two directories:
 
 Users can sort both the USERS and IDEAS directories by the *Skill*, *Material*, or *Type of Work* that they are looking for.
 
+## Getting Started
+
+If you would like to test the live website visit [sk-id.info](http://sk-id.info):
+
+- You can create an account with a username, password, first name, and last name (It doesn't need to be your real name).
+- Fill out more profile detals.
+- Create an Idea.
+- Add Skills, Materials, or Types of Work that all users can add to their profiles or Ideas.
+
+If you would like to download or clone this project and try it with the Django development server:
+
+- Install requirements.txt in a virtual environment.
+- Create a file called `.env` in the project's base directory with the following two lines:
+
+    ```env
+    SECRET_KEY='<replace with a secret key>'
+    DEBUG='True'
+    ```
+
 ## TODO
 
 *This project is still in progress. I will continue to add the following features so that SKID can be as useful of a website as possible.*

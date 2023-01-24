@@ -63,10 +63,12 @@
 
 
 {% block footer %}
-<footer class="py-3 bg-grey">
-  <p class="m-0 text-dark text-right ">Copyright &copy; <a href="https://www.josephmadsen.com">Joseph Madsen</a></p>
-  <p class="m-0 text-dark text-right "><a href="{% url 'credits' %}">Credits</a></p>
-</footer>
+<div class="container-sm">
+  <footer class="py-3 bg-grey">
+    <p class="m-0 text-dark text-right ">Copyright &copy; <a href="https://www.josephmadsen.com">Joseph Madsen</a></p>
+    <p class="m-0 text-dark text-right "><a href="{% url 'credits' %}">Credits</a></p>
+  </footer>
+</div>
 {% endblock footer %}
 
 </body>
