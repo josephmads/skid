@@ -1,8 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.shortcuts import render, redirect, HttpResponse
-from django.views.generic import TemplateView
+from django.shortcuts import render, redirect
 from django.forms.models import model_to_dict
 
 from .forms import *
@@ -13,14 +12,14 @@ User=get_user_model()
 # Create your views here.
 
 @login_required()
-def profile(request, username):
+def profile(request, id):
     """View function displays user profile."""
     try:
         userId = int(request.session["_auth_user_id"])
-        user = User.objects.filter(id=userId, username=username).first()
+        user = User.objects.filter(id=userId).first()
 
         if user:
-            profile = Profile.objects.filter(user_id__username=username).first()
+            profile = Profile.objects.filter(user_id__id=id).first()
             context = {
                 'profile': profile,
                 'user': user,
@@ -37,14 +36,14 @@ def profile(request, username):
         
 
 @login_required()
-def edit_profile(request, username):
+def edit_profile(request, id):
     """
     View function displays form to edit user profile. Dynamically
     prepopulates the form with previously saved data.
     """
     try:
         userId = int(request.session["_auth_user_id"])
-        user = User.objects.filter(id=userId, username=username).first()
+        user = User.objects.filter(id=userId).first()
 
         if user:
             if request.method == 'POST':
@@ -56,14 +55,14 @@ def edit_profile(request, username):
                     profile_form.save()
                     messages.success(request, "Profile updated successfully.")
                 
-                    return redirect('users:profile', username)
+                    return redirect('users:profile', id)
 
                 else:
                     messages.warning(request, "Please correct the error below.")
 
             elif request.method == 'GET':
                 # Queries user's profile for existing data
-                profile_data = Profile.objects.filter(user_id__username=username).first()
+                profile_data = Profile.objects.filter(user_id__id=id).first()
                 # Converts data into dict to be passed the initial field
                 existing_data = model_to_dict(profile_data)
 
@@ -86,14 +85,14 @@ def edit_profile(request, username):
 
 
 @login_required
-def create_idea(request, username):
+def create_idea(request, id):
     """
     View function displays form for user to create Idea. Prepopulates 
     'author' field to connect Idea to user.
     """
     try:
         userId = int(request.session["_auth_user_id"])
-        user = User.objects.filter(id=userId, username=username).first()
+        user = User.objects.filter(id=userId).first()
 
         if user:
             if request.method == 'POST':
@@ -102,7 +101,7 @@ def create_idea(request, username):
                     form.save()
                     messages.success(request, 'Idea created successfully.')
                     
-                    return redirect('users:profile', username)
+                    return redirect('users:profile', id)
 
                 else:
                     print(form.errors)
@@ -126,14 +125,14 @@ def create_idea(request, username):
 
 
 @login_required
-def edit_idea(request, username, slug):
+def edit_idea(request, id, slug):
     """
     View function displays form to edit Idea. Dynamically prepopulates form
     with previously saved data.
     """
     try:
         userId = int(request.session["_auth_user_id"])
-        user = User.objects.filter(id=userId, username=username).first()
+        user = User.objects.filter(id=userId).first()
 
         if user:
             # Queries idea for existing data
@@ -145,7 +144,7 @@ def edit_idea(request, username, slug):
                     form.save()
                     messages.success(request, 'Idea edited successfully.')
 
-                return redirect('users:view_ideas', username)
+                return redirect('users:view_ideas', id)
 
             elif request.method == 'GET':
                 # Converts data into dict to be passed the initial field
@@ -168,11 +167,11 @@ def edit_idea(request, username, slug):
 
 
 @login_required
-def delete_idea(request, username, slug):
+def delete_idea(request, id, slug):
     """View function displays form to allow user to delete Idea."""
     try:
         userId = int(request.session["_auth_user_id"])
-        user = User.objects.filter(id=userId, username=username).first()
+        user = User.objects.filter(id=userId).first()
 
         if user:
             # Queries idea for existing data
@@ -182,7 +181,7 @@ def delete_idea(request, username, slug):
                 idea_data.delete()
                 messages.success(request, 'Idea deleted successfully.')
 
-                return redirect('users:view_ideas', username)
+                return redirect('users:view_ideas', id)
 
             elif request.method == 'GET':
                 context = {'idea_data': idea_data}
@@ -199,17 +198,16 @@ def delete_idea(request, username, slug):
 
 
 @login_required
-def view_ideas(request, username):
+def view_ideas(request, id):
     """View function displays table of users Ideas."""
     try:
         userId = int(request.session["_auth_user_id"])
-        user = User.objects.filter(id=userId, username=username).first()
+        user = User.objects.filter(id=userId).first()
 
         if user:
             ideas = Idea.objects.filter(author=user)
             context = {
                 'ideas': ideas,
-                'user': user,
             }
             return render(request, 'users/view_ideas.html', context=context)
 
@@ -251,8 +249,6 @@ def add_skill(request):
         print("ERROR: ", str(err))
         context = {'error': str(err)}
         return render(request, 'error_page.html', context, content_type='text/html')
-    
-    
 
 
 @login_required

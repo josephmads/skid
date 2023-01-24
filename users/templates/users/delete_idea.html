@@ -9,7 +9,7 @@
   <p>Are you sure that you want to delete <strong>"{{ idea_data.title }}"</strong>?</p>
   <div>
     <button class="btn btn-danger" type="submit">Delete</button>
-    <a class="btn btn-secondary btn-sm" href="{% url 'users:view_ideas' user.username %}">Cancel</a>
+    <a class="btn btn-secondary btn-sm" href="{% url 'users:view_ideas' user.id %}">Cancel</a>
   </div>
 </form>
 

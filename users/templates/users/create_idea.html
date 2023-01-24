@@ -10,7 +10,7 @@
                 <table>{{ form.as_table }}</table>
             </div>
             <input class="btn btn-success" type="submit" value="Save">
-            <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.username %}">Cancel</a>
+            <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.id %}">Cancel</a>
         </form>
     </div>
 {% endblock content %}
