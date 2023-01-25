@@ -4,10 +4,10 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <div>
+    <div class="container">
         <h1>{{ profile.user_id.first_name }} {{ profile.user_id.last_name }}</h1>
         <ul>
-            {% if profile.business_name %}<li>Business Name: {{ profile.business_name }}</li>{% endif %}
+            <li>Business Name: {{ profile.business_name }}</li>
             <li>Email: {{ profile.email_public }}</li>
             <li>Phone: {{ profile.phone_number }}</li>
             <li>
@@ -22,19 +22,28 @@
             <li>
                 Skills:
                 {% for skill in profile.skills.all %} 
-                <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a>
+                <a href="{% url 'directory:user_skill' skill.id %}" 
+                    class="badge bg-primary" style="text-decoration: none;">
+                    {{ skill }}
+                </a>
                 {% endfor %}
             </li>
             <li>
                 Materials:
                 {% for material in profile.materials.all %}
-                <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                <a href="{% url 'directory:user_material' material.id %}" 
+                    class="badge bg-primary" style="text-decoration: none;">
+                    {{ material }}
+                </a>
                 {% endfor %}
             </li>
             <li>
                 Type of Work:
                 {% for type in profile.type_of_work.all %}
-                <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                <a href="{% url 'directory:user_work_type' type.id %}" 
+                    class="badge bg-primary" style="text-decoration: none;">
+                    {{ type }}
+                </a>
                 {% endfor %}
             </li>
         </ul>

@@ -3,5 +3,8 @@
 
 
 {% block branding %}
-    <a class="navbar-brand" href="{% url 'home' %}">SKID Home</a>
+    <a class="navbar-brand" href="{% url 'home' %}">SKID</a>
+    <a class="navbar-brand" href="{% url 'directory:directory' %}">Directory</a>
+    <a class="navbar-brand" href="{% url 'directory:users' %}">Users</a>
+    <a class="navbar-brand" href="{% url 'directory:ideas' %}">Ideas</a>
 {% endblock branding %}

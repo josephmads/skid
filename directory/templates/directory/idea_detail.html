@@ -6,26 +6,31 @@
 {% if user.is_authenticated %}
     <div class="container">
         <h3>{{ idea.title }}</h3>
-        <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.author.id %}">{{ idea.author }}</a></h5>
+        <h5 class="text-muted">by, <a href="{% url 'directory:user_detail' idea.author.id %}" 
+            style="text-decoration: none;">{{ idea.author }}</a>
+        </h5>
         
         <div class="container">
             Skills:
             {% for skill in idea.skills.all %}
-                <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">
+                <a href="{% url 'directory:idea_skill' skill.id %}" 
+                    class="badge bg-primary" style="text-decoration: none;">
                 {{ skill }}
                 </a>
             {% endfor %}
             <br>
             Materials:
             {% for material in idea.materials.all %}
-                <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">
+                <a href="{% url 'directory:idea_material' material.id %}" 
+                    class="badge bg-primary" style="text-decoration: none;">
                 {{ material }}
                 </a>
             {% endfor %}
             <br>
             Type of Work:
             {% for type in idea.type_of_work.all %}
-                <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">
+                <a href="{% url 'directory:idea_work_type' type.id %}" 
+                    class="badge bg-primary" style="text-decoration: none;">
                 {{ type }}
                 </a>
             {% endfor %}

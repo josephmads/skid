@@ -11,7 +11,8 @@
 
         {% for idea in idea_list %}
             <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
+                <a href="{{ idea.get_absolute_url }}" style="text-decoration: none;">
+                    {{ idea.title }}</a>, by {{ idea.author }}
             </h4>
         {% endfor %}
     </div>
@@ -22,7 +23,8 @@
         
         {% for idea in idea_list %}
             <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
+                <a href="{{ idea.get_absolute_url }}" style="text-decoration: none;">
+                    {{ idea.title }}</a>, by {{ idea.author }}
             </h4>
         {% endfor %}
     </div>
@@ -33,7 +35,8 @@
 
         {% for idea in idea_list %}
             <h4>
-                <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>, by {{ idea.author }}
+                <a href="{{ idea.get_absolute_url }}" style="text-decoration: none;">
+                    {{ idea.title }}</a>, by {{ idea.author }}
             </h4>
         {% endfor %}
     </div>
@@ -42,10 +45,12 @@
         <h2>All Ideas</h2>
         <div class="container">
             {% for idea in idea_list %}
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: auto; max-width: 50rem;">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{{ idea.get_absolute_url }}">{{ idea.title }}</a>
+                        <a href="{{ idea.get_absolute_url }}" style="text-decoration: none;">
+                            {{ idea.title }}
+                        </a>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">by {{ idea.author }}</h6>
     
@@ -54,19 +59,28 @@
                         <li>
                             Skills:
                             {% for skill in idea.skills.all %} 
-                            <a href="{% url 'directory:idea_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
+                            <a href="{% url 'directory:idea_skill' skill.id %}" 
+                                class="badge bg-primary" style="text-decoration: none;">
+                                {{ skill }}
+                            </a> 
                             {% endfor %}
                         </li>
                         <li>
                             Materials:
                             {% for material in idea.materials.all %}
-                            <a href="{% url 'directory:idea_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                            <a href="{% url 'directory:idea_material' material.id %}" 
+                                class="badge bg-primary" style="text-decoration: none;">
+                                {{ material }}
+                            </a>
                             {% endfor %}
                         </li>
                         <li>
                             Type of Work:
                             {% for type in idea.type_of_work.all %}
-                            <a href="{% url 'directory:idea_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                            <a href="{% url 'directory:idea_work_type' type.id %}" 
+                                class="badge bg-primary" style="text-decoration: none;">
+                                {{ type }}
+                            </a>
                             {% endfor %}
                         </li>
                     </ul>

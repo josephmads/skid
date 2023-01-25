@@ -31,8 +31,8 @@
                                 <td>Draft</td>
                             {% endif %}
 
-                            <td><a class="btn-primary btn-sm" href="{% url 'users:edit_idea' idea.author.id idea.slug %}">Edit</a></td>
-                            <td><a class="btn-danger btn-sm" href="{% url 'users:delete_idea' idea.author.id idea.slug %}">Delete</a></td>    
+                            <td><a class="btn btn-primary btn-sm" href="{% url 'users:edit_idea' idea.author.id idea.slug %}">Edit</a></td>
+                            <td><a class="btn btn-danger btn-sm" href="{% url 'users:delete_idea' idea.author.id idea.slug %}">Delete</a></td>    
                         </tr>
                         {% endfor %}
                     </tbody>

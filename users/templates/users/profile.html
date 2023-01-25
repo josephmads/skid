@@ -3,8 +3,8 @@
 
 {% block content %}
 <div class="container">
-    <div class="row justify-content-start">
-        <div class="col-10">
+    <div class="row">
+        <div class="col-8 order-1">
 
             <legend class="border-bottom mb-4">Account Information:</legend>
                 <div>
@@ -56,19 +56,18 @@
         </div>
 
         <!-- Sidebar -->
-        <div class="row justify-content-end">
-            <div class="col-4">
-                <div class="sidenav">
-                    <a class="nav-link btn btn-secondary" href="{% url 'users:edit_profile' user.id %}">Edit Information</a>
-                    <a class="nav-link btn btn-secondary" href="{% url 'users:create_idea' user.id %}">Create Idea</a>
-                    <a class="nav-link btn btn-secondary" href="{% url 'users:view_ideas' user.id %}">View Ideas</a>
-                    <li class="nav-link">- For All Users -</li>
-                    <a class="nav-link btn btn-info" href="{% url 'users:add_skill' %}">Add Skills</a>
-                    <a class="nav-link btn btn-info" href="{% url 'users:add_material' %}">Add Materials</a>
-                    <a class="nav-link btn btn-info" href="{% url 'users:add_work_type' %}">Add Work Types</a>
-                </div>
+        <div class="col-4 order-2">
+            <div class="sidenav">
+                <a class="nav-link btn btn-secondary" href="{% url 'users:edit_profile' user.id %}">Edit Information</a>
+                <a class="nav-link btn btn-secondary" href="{% url 'users:create_idea' user.id %}">Create Idea</a>
+                <a class="nav-link btn btn-secondary" href="{% url 'users:view_ideas' user.id %}">View Ideas</a>
+                <li class="nav-link">- For All Users -</li>
+                <a class="nav-link btn btn-info" href="{% url 'users:add_skill' %}">Add Skills</a>
+                <a class="nav-link btn btn-info" href="{% url 'users:add_material' %}">Add Materials</a>
+                <a class="nav-link btn btn-info" href="{% url 'users:add_work_type' %}">Add Work Types</a>
             </div>
         </div>
+        
     </div>
 </div>
 {% endblock content %}

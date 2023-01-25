@@ -12,9 +12,13 @@
         {% for user in users %}
             <h4>
                 {% if user.business_name %}
-                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.business_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}" style="text-decoration: none;">
+                        {{ user.business_name }}
+                    </a>
                 {% else %}
-                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}" style="text-decoration: none;">
+                        {{ user.user_id.last_name }}, {{ user.user_id.first_name }}
+                    </a>
                 {% endif %}
             </h4>
         {% endfor %}
@@ -27,9 +31,13 @@
         {% for user in users %}
             <h4>
                 {% if user.business_name %}
-                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.business_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}" style="text-decoration: none;">
+                        {{ user.business_name }}
+                    </a>
                 {% else %}
-                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}" style="text-decoration: none;">
+                        {{ user.user_id.last_name }}, {{ user.user_id.first_name }}
+                    </a>
                 {% endif %}
             </h4>
         {% endfor %}
@@ -42,9 +50,13 @@
         {% for user in users %}
             <h4>
                 {% if user.business_name %}
-                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.business_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}" style="text-decoration: none;">
+                        {{ user.business_name }}
+                    </a>
                 {% else %}
-                    <a href="{% url 'directory:user_detail' user.user_id.id %}">{{ user.user_id.last_name }}, {{ user.user_id.first_name }}</a>
+                    <a href="{% url 'directory:user_detail' user.user_id.id %}" style="text-decoration: none;">
+                        {{ user.user_id.last_name }}, {{ user.user_id.first_name }}
+                    </a>
                 {% endif %}
             </h4>
         {% endfor %}
@@ -54,10 +66,12 @@
         <h2>All Users</h2>
         <div class="container">
             {% for user in users %}
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: auto; max-width: 50rem;">
                     <div class="card-body">
                         <h5 class="card-title">
-                            <a href="{% url 'directory:user_detail' user.id %}">{{ user.last_name }}, {{ user.first_name }}</a>
+                            <a href="{% url 'directory:user_detail' user.id %}" style="text-decoration: none;">
+                                {{ user.last_name }}, {{ user.first_name }}
+                            </a>
                         </h5>
                         {% if user.profile.business_name %}
                         <h6 class="card-subtitle mb-2 text-muted">{{ user.profile.business_name }}</h6>
@@ -66,19 +80,28 @@
                             <li>
                                 Skills:
                                 {% for skill in user.profile.skills.all %} 
-                                <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">{{ skill }}</a> 
+                                <a href="{% url 'directory:user_skill' skill.id %}" 
+                                    class="badge bg-primary" style="text-decoration: none;">
+                                    {{ skill }}
+                                </a> 
                                 {% endfor %}
                             </li>
                             <li>
                                 Materials:
                                 {% for material in user.profile.materials.all %}
-                                <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">{{ material }}</a>
+                                <a href="{% url 'directory:user_material' material.id %}" 
+                                    class="badge bg-primary" style="text-decoration: none;">
+                                    {{ material }}
+                                </a>
                                 {% endfor %}
                             </li>
                             <li>
                                 Type of Work:
                                 {% for type in user.profile.type_of_work.all %}
-                                <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">{{ type }}</a>
+                                <a href="{% url 'directory:user_work_type' type.id %}" 
+                                class="badge bg-primary" style="text-decoration: none;">
+                                {{ type }}
+                            </a>
                                 {% endfor %}
                             </li>
                         </ul>
@@ -94,8 +117,8 @@
 <div class="pagination">
     <span class="step-links">
         {% if users.has_previous %}
-            <a class="btn-primary btn-sm" href="?page=1">&laquo; first</a>
-            <a class="btn-primary btn-sm" href="?page={{ users.previous_page_number }}">previous</a>
+            <a class="btn btn-primary btn-sm" href="?page=1">&laquo; first</a>
+            <a class="btn btn-primary btn-sm" href="?page={{ users.previous_page_number }}">previous</a>
         {% endif %}
   
         <span class="current text-muted">
@@ -103,8 +126,8 @@
         </span>
   
         {% if users.has_next %}
-            <a class="btn-primary btn-sm" href="?page={{ users.next_page_number }}">next</a>
-            <a class="btn-primary btn-sm" href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
+            <a class="btn btn-primary btn-sm" href="?page={{ users.next_page_number }}">next</a>
+            <a class="btn btn-primary btn-sm" href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
   </div>

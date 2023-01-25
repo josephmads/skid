@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
 
-
 {% block title %}
     <title>SKID | Directory</title>
 {% endblock title %}
     
 {% block content %}
-    <h1>The SKID Directory</h1>
     <div class="container">
+        <h1>The SKID Directory</h1>
         <div class="row justify-content-evenly">
-            <div class="col-4">
+            <div class="col-6">
                 <div>
                     <h2>
-                        See <a href="{% url 'directory:users' %}">All Users</a>
+                        See <a href="{% url 'directory:users' %}" style="text-decoration: none;">All Users</a>
                     </h2>
                 </div>
                 <div class="container">
@@ -21,19 +20,22 @@
                         <div class="container">
                             <h5>Skill</h5>
                                 {% for skill in skills %}
-                                    <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">
+                                    <a href="{% url 'directory:user_skill' skill.id %}" 
+                                        class="badge bg-primary" style="text-decoration: none;">
                                         {{ skill }}
                                     </a>
                                 {% endfor %}
                             <h5>Material</h5>
                                 {% for material in materials %}
-                                    <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">
+                                    <a href="{% url 'directory:user_material' material.id %}" 
+                                        class="badge bg-primary" style="text-decoration: none;">
                                         {{ material }}
                                     </a>
                                 {% endfor %}
                             <h5>Type of Work</h5>
                                 {% for type in worktype %}
-                                    <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">
+                                    <a href="{% url 'directory:user_work_type' type.id %}" 
+                                        class="badge bg-primary" style="text-decoration: none;">
                                         {{ type }}
                                     </a>
                                 {% endfor %}
@@ -41,10 +43,10 @@
                 </div>
             </div>
         
-            <div class="col-4">
+            <div class="col-6">
                 <div>
                     <h2>
-                        See <a href="{% url 'directory:ideas' %}">All Ideas</a>
+                        See <a href="{% url 'directory:ideas' %}" style="text-decoration: none;">All Ideas</a>
                     </h2>   
                 </div>
                 <div class="container">
@@ -52,19 +54,22 @@
                         <div class="container">
                             <h5>Skill</h5>
                                 {% for skill in skills %}
-                                    <a href="{% url 'directory:user_skill' skill.id %}" class="badge text-white bg-primary">
+                                    <a href="{% url 'directory:user_skill' skill.id %}" 
+                                        class="badge bg-primary" style="text-decoration: none;">
                                         {{ skill }}
                                     </a>
                                 {% endfor %}
                             <h5>Material</h5>
                                 {% for material in materials %}
-                                    <a href="{% url 'directory:user_material' material.id %}" class="badge text-white bg-primary">
+                                    <a href="{% url 'directory:user_material' material.id %}" 
+                                        class="badge bg-primary" style="text-decoration: none;">
                                         {{ material }}
                                     </a>
                                 {% endfor %}
                             <h5>Type of Work</h5>
                                 {% for type in worktype %}
-                                    <a href="{% url 'directory:user_work_type' type.id %}" class="badge text-white bg-primary">
+                                    <a href="{% url 'directory:user_work_type' type.id %}" 
+                                        class="badge bg-primary" style="text-decoration: none;">
                                         {{ type }}
                                     </a>
                                 {% endfor %}
