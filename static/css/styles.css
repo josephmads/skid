@@ -1,0 +1,39 @@
+body { 
+	max-width: 1080px;
+	margin: auto;
+}
+
+.icon {
+	height: 25px;
+	width: 25px;
+}
+
+.spacer {
+	min-width: 10px;
+	min-height: 10px;
+}
+
+.sidenav {
+	width: 160px;
+	position: fixed;
+	z-index: 1;
+	top: auto;
+	left: auto;
+	background: rgb(255, 255, 255);
+	overflow-x: hidden;
+	padding: 8px 0;
+  }
+
+  .sidenav a {
+	margin: 6px;
+	padding: 6px 8px 8px 8px;
+	text-decoration: none;
+	font-size: 16px;
+	color: rgb(255, 255, 255);
+	display: block;
+  }
+
+  .sidenav a:hover {
+	color: #ffffff;
+  }
+  
