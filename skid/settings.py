@@ -156,11 +156,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email Backend
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'email-smtp.us-east-2.amazonaws.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = env('EMAIL_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
+DEFAULT_FROM_EMAIL = 'skid.info@mail.com'
 
 # Django AllAuth
 AUTHENTICATION_BACKENDS = (
