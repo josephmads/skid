@@ -93,11 +93,11 @@
 </div>
 
 <!-- Pagination -->
-<div class="pagination">
+<div class="pagination container">
     <span class="step-links">
         {% if idea_list.has_previous %}
-            <a class="btn-primary btn-sm" href="?page=1">&laquo; first</a>
-            <a class="btn-primary btn-sm" href="?page={{ idea_list.previous_page_number }}">previous</a>
+            <a class="btn btn-primary btn-sm" href="?page=1">&laquo; first</a>
+            <a class="btn btn-primary btn-sm" href="?page={{ idea_list.previous_page_number }}">previous</a>
         {% endif %}
   
         <span class="current text-muted">
@@ -105,8 +105,8 @@
         </span>
   
         {% if idea_list.has_next %}
-            <a class="btn-primary btn-sm" href="?page={{ idea_list.next_page_number }}">next</a>
-            <a class="btn-primary btn-sm" href="?page={{ idea_list.paginator.num_pages }}">last &raquo;</a>
+            <a class="btn btn-primary btn-sm" href="?page={{ idea_list.next_page_number }}">next</a>
+            <a class="btn btn-primary btn-sm" href="?page={{ idea_list.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
   </div>

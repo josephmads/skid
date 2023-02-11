@@ -3,6 +3,18 @@ body {
 	margin: auto;
 }
 
+.header {
+	height: 80px;
+}
+
+.content-wrap {
+	min-height: calc(100vh - 160px);
+}
+
+.footer {
+	height: 80px;
+  }
+
 .icon {
 	height: 25px;
 	width: 25px;
