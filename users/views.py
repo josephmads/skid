@@ -240,8 +240,12 @@ def add_skill(request):
 
         if request.method == 'POST':
             if form.is_valid():
-                form.save()
-                messages.success(request, 'Skill added.')
+                instance = form.save(commit=False)
+                if instance.skill == '':
+                    messages.warning(request, 'Skill cannot be empty.')
+                else:
+                    instance.save()
+                    messages.success(request, 'Skill added.')
 
             return redirect('users:add_skill')
 
@@ -273,8 +277,12 @@ def add_material(request):
 
         if request.method == 'POST':
             if form.is_valid():
-                form.save()
-                messages.success(request, 'Material added.')
+                instance = form.save(commit=False)
+                if instance.material == '':
+                    messages.warning(request, 'Material cannot be empty.')
+                else:
+                    instance.save()
+                    messages.success(request, 'Material added.')
 
             return redirect('users:add_material')
 
@@ -307,8 +315,12 @@ def add_work_type(request):
 
         if request.method == 'POST':
             if form.is_valid():
-                form.save()
-                messages.success(request, 'Work type added.')
+                instance = form.save(commit=False)
+                if instance.work_type == '':
+                    messages.warning(request, 'Work Type cannot be empty.')
+                else:
+                    instance.save()
+                    messages.success(request, 'Work Type added.')
 
             return redirect('users:add_work_type')
 
