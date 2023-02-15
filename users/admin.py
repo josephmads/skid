@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Idea, Skill, Material, WorkType, Profile
+from .models import *
 
 # Register your models here.
 
@@ -19,8 +19,19 @@ class IdeaAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     search_fields = ['title', 'text']
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = (
+        'commenter',
+        'text',
+        'idea',
+        'created_on',
+    )
+    list_filter = ('created_on',)
+    search_fields = ('commenter', 'idea',)
+
 admin.site.register(Skill)
 admin.site.register(Material)
 admin.site.register(WorkType)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Idea, IdeaAdmin)
+admin.site.register(Comment, CommentAdmin)

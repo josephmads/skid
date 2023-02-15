@@ -1,8 +1,10 @@
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from users.models import Idea, Profile, Skill, Material, WorkType
+from users.forms import CommentForm
 
 User=get_user_model()
 
@@ -159,11 +161,31 @@ def idea_list(request):
 def idea_detail(request, slug):
     """View function displays details of ideas."""
     try:
-        idea = Idea.objects.get(slug=slug)
-        context = {
+        userId = int(request.session["_auth_user_id"])
+        user = User.objects.filter(id=userId).first()
+
+        
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Comment posted successfully.')
+                
+                return redirect('directory:idea_detail', slug)
+
+        elif request.method == 'GET':
+            idea = Idea.objects.get(slug=slug)
+            comments = idea.comments.all()
+
+            comment_fields = {'idea': idea, 'commenter': user}
+            form = CommentForm(instance=user, initial=comment_fields)
+
+            context = {
             'idea': idea,
-        }
-        return render(request, 'directory/idea_detail.html', context)
+            'comments': comments,
+            'form': form,
+            }   
+            return render(request, 'directory/idea_detail.html', context)
     
     except Exception as err:
         # print("ERROR: ", str(err), file=sys.stderr)

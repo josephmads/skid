@@ -133,3 +133,14 @@ class Idea(models.Model):
         self.slug = slugify(value, allow_unicode=True)
         super().save(*args, **kwargs)
 
+class Comment(models.Model):
+    """Model representing a Comment that a user makes on an Idea."""
+    idea = models.ForeignKey(Idea, on_delete=models.CASCADE, related_name='comments')
+    commenter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        """String representing the Comment."""
+        return f'Comment {self.text} by {self.commenter}'
+        

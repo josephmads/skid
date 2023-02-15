@@ -64,7 +64,7 @@ class IdeaForm(forms.ModelForm):
         widgets = {
             'author': forms.HiddenInput(),
             'slug': forms.HiddenInput()
-            }
+        }
 
         fields = [
             'author',
@@ -97,4 +97,18 @@ class WorkTypeForm(forms.ModelForm):
     class Meta:
         model = WorkType
         fields= ['work_type']
+
+class CommentForm(forms.ModelForm):
+    
+    class Meta:
+        model = Comment
+        widgets = {
+            'idea': forms.HiddenInput(),
+            'commenter': forms.HiddenInput()
+        }
         
+        fields = [
+            'idea', 
+            'commenter', 
+            'text',
+        ]

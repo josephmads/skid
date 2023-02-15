@@ -43,7 +43,47 @@
         <p class="word-wrap" style="width: 80rem;"> {{ idea.text }}</p>
         <div class="spacer"></div>
         <a href="{% url 'directory:ideas' %}" class="btn btn-primary">Go Back</a>
+        <div class="spacer"></div>
+
+        
+        {% if comments %}
+        <div class="container">
+            <div class="col-md-8 card mb-4 mt-3">
+                <div class="card-body">
+                <h4 class="">COMMENTS ({{ comments.count }})</h4>
+                {% for comment in comments %}
+                <div style="padding: 5px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="{% url 'directory:user_detail' comment.commenter.id %}" 
+                            style="text-decoration: none;">{{ comment.commenter }}</a>
+                        <span class="text-muted small">{{ comment.created_on }}</span>
+                        </div>
+                        <div class="card-text" style="padding: 5px 0px 0px 10px;">
+                        {{ comment.text | linebreaks }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+            
+        <div class="container">
+            <div class="col-md-8 card mb-4 mt-3">
+                <div class="card-body">
+                <h4>Leave a Comment</h4>
+                <form method="post" style="margin-top: 1.3em;">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
+                </div>
+            </div>
+        </div>
     </div>
+    
 {% else %}
     <div class="container">
         <h5>Must be logged in to view this page.</h5>
