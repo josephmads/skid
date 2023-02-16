@@ -1,4 +1,6 @@
 from allauth.account.forms import SignupForm
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 from django import forms
 from django.contrib.auth import get_user_model
 
@@ -36,6 +38,12 @@ class UserUpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
 
+    phone_number = forms.CharField(max_length=31, required=False)
+    about = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 4}),
+        required=False,
+    )
+
     class Meta:
         model = Profile
         fields = [
@@ -57,7 +65,7 @@ class ProfileUpdateForm(forms.ModelForm):
             'type_of_work': 'Type of Work',
         }
 
-class IdeaForm(forms.ModelForm): 
+class IdeaForm(forms.ModelForm):
 
     class Meta:
         model = Idea
@@ -100,6 +108,11 @@ class WorkTypeForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     
+    text = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 4}),
+        required=False, label=False
+    )
+
     class Meta:
         model = Comment
         widgets = {
@@ -112,3 +125,5 @@ class CommentForm(forms.ModelForm):
             'commenter', 
             'text',
         ]
+
+     

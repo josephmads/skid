@@ -2,16 +2,48 @@
 
 
 {% block content %}
-    <div class="container">
-        <form action="" method="post">
-            {% csrf_token %}
-            <legend class="border-bottom mb-4">Idea:</legend>
-            <div class="container">
-                <table>{{ form.as_table }}</table>
+
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <legend class="border-bottom mb-4">Idea:</legend>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-0">
+                    {{ form.title | as_crispy_field }}
+                </div>
+                <div class="col-md-4 mb-0">
+                    {{ form.author | as_crispy_field }}
+                </div>
             </div>
-            <input class="btn btn-success" type="submit" value="Save">
-            <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.id %}">Cancel</a>
-        </form>
-    </div>
+            <div class="row">
+                <div class="col-md-8 mb-0">
+                    {{ form.text | as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 mb-0">
+                    {{ form.skills | as_crispy_field }}
+                </div>
+                <div class="col-md-2 mb-0">
+                    {{ form.materials| as_crispy_field }}
+                </div>
+                <div class="col-md-2 mb-2">
+                    {{ form.type_of_work | as_crispy_field }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 mb-2">
+                    {{ form.status | as_crispy_field }}
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary" style="margin-left: 10px;" type="submit" value="Save">
+        <a class="btn btn-secondary" href="{% url 'users:profile' user.id %}">Cancel</a>
+    </form>
+</div>
+
 {% endblock content %}
     

@@ -2,21 +2,85 @@
 
 
 {% block content %}
+
+{% load crispy_forms_tags %}
+
 <div class="container">
 <form action="" method="post">
     {% csrf_token %}
     <legend class="border-bottom mb-4">Account Information:</legend>
     <div class="container">
-        <table>{{ user_form.as_table }}</table>
+        <div class="row">
+            <div class="col-md-4 mb-0">
+                {{ user_form.username | as_crispy_field }}
+            </div>
+            <div class="col-md-4 mb-0">
+                {{ user_form.email | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-0">
+                {{ user_form.first_name | as_crispy_field }}
+            </div>
+            <div class="col-md-4 mb-0">
+                {{ user_form.last_name | as_crispy_field }}
+            </div>
+        </div>
     </div>
     <div class="spacer"></div>
+
     <legend class="border-bottom mb-4">Profile Information:</legend>
     <div class="container">
-        <table>{{ profile_form.as_table }}</table>
+        <div class="row">
+            <div class="col-md-4 mb-0">
+                {{ profile_form.business_name | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-0">
+                {{ profile_form.email_public | as_crispy_field }}
+            </div>
+            <div class="col-md-4 mb-0">
+                {{ profile_form.phone_number | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-0">
+                {{ profile_form.address | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-0">
+                {{ profile_form.city | as_crispy_field }}
+            </div>
+            <div class="col-md-2 mb-0">
+                {{ profile_form.state_province | as_crispy_field }}
+            </div>
+            <div class="col-md-2 mb-0">
+                {{ profile_form.zip_code | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mb-0">
+                {{ profile_form.about | as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 mb-0">
+                {{ profile_form.skills | as_crispy_field }}
+            </div>
+            <div class="col-md-2 mb-0">
+                {{ profile_form.materials| as_crispy_field }}
+            </div>
+            <div class="col-md-2 mb-2">
+                {{ profile_form.type_of_work | as_crispy_field }}
+            </div>
+        </div>
     </div>
-    <input class="btn btn-success" type="submit" value="Save">
-    <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.id %}">Cancel</a>
+    <input class="btn btn-primary" style="margin-left: 10px;" type="submit" value="Save">
+    <a class="btn btn-secondary" href="{% url 'users:profile' user.id %}">Cancel</a>
 </form>
 </div>
+
 {% endblock content %}
     

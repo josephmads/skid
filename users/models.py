@@ -60,7 +60,6 @@ class Profile(models.Model):
         blank=True,
         null=True,
         max_length=100, 
-        help_text='This email address will be displayed on your public SKID profile.'
         )
     phone_number = PhoneField(blank=True)
     address = models.CharField(max_length=150, blank=True)
@@ -70,13 +69,24 @@ class Profile(models.Model):
     country = models.CharField(max_length=56, blank=True)
     about = models.TextField(blank=True)
 
-    skills = models.ManyToManyField(to=Skill, related_name='profile', blank=True)
-    materials = models.ManyToManyField(to=Material, related_name='profile', blank=True)
+    skills = models.ManyToManyField(
+        to=Skill, 
+        related_name='profile', 
+        blank=True, 
+        help_text='hold ctrl or cmd to select more than one'
+        )
+    materials = models.ManyToManyField(
+        to=Material, 
+        related_name='profile', 
+        blank=True,
+        help_text='hold ctrl or cmd to select more than one'
+        )
     type_of_work = models.ManyToManyField(
         to=WorkType,
         related_name='profile', 
         blank=True,
-        help_text='eg: Prototype, Production, Made to Order, etc.')
+        help_text='hold ctrl or cmd to select more than one'
+        )
 
     def get_absolute_url(self):
         """Returns URL to access a particular user instance."""

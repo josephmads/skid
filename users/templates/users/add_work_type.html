@@ -3,12 +3,14 @@
 
 {% block content %}
 
+{% load crispy_forms_tags %}
+
 <div class="container">
     <div class="row justify-content-evenly">
         <div class="col-3">
             <form action="" method="post">
                 {% csrf_token %}
-                {{ form.as_p}}
+                {{ form | crispy }}
                 <input class="btn btn-success" type="submit" value="Add">
                 <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.id %}">Return to Profile</a>
             </form>
