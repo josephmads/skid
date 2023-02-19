@@ -18,7 +18,7 @@
                 {{ profile.zip_code }}
                 {{ profile.country }}<br>
             </li>
-            <li>Bio: {{ profile.about }}</li>
+            <li>Bio: {{ profile.about | linebreaks }}</li>
             <li>
                 Skills:
                 {% for skill in profile.skills.all %} 

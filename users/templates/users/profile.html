@@ -31,24 +31,24 @@
                             {{ profile.country }}<br>
                         </li>
                         <br>
-                        <li><strong>About:</strong> {{ profile.about }}</li>
+                        <li><strong>About:</strong> {{ profile.about | linebreaks }}</li>
                         <br>
                         <li>
                             <strong>Skills:</strong>
                             {% for skill in profile.skills.all %} 
-                            {{ skill }} •
+                            <span class="badge rounded-pill text-bg-light">{{ skill }}</span>
                             {% endfor %}
                         </li>   
                         <li>
                             <strong>Materials:</strong>
                             {% for material in profile.materials.all %}
-                                {{ material }} •
+                            <span class="badge rounded-pill text-bg-light">{{ material }}</span>
                             {% endfor %}
                         </li>
                         <li>
                             <strong>Type of Work:</strong>
                             {% for type in profile.type_of_work.all %}
-                            {{ type }} •
+                            <span class="badge rounded-pill text-bg-light">{{ type }}</span>
                             {% endfor %}
                         </li>
                     </ul>
