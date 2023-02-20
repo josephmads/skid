@@ -140,7 +140,7 @@ class Idea(models.Model):
 
     def save(self, *args, **kwargs):
         value = self.title
-        self.slug = slugify(value, allow_unicode=True)
+        self.slug = slugify(value, allow_unicode=False)
         super().save(*args, **kwargs)
 
 class Comment(models.Model):
