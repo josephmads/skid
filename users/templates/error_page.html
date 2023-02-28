@@ -4,7 +4,14 @@
 {% block content %}
 <div class="container">
     <h1>Something Went Wrong</h1>
-    <p>It's not you, it's me . . .</p>
+    
+    {% if user.is_authenticated %}
+        <p>It's not you, it's me . . .</p>
+    {% else %}
+        <P>Please log in to your account and try again.</P>
+    {% endif %}
+        
+    <p></p>
     <a class="btn btn-primary" href="{% url 'home' %}">Return Home</a>
 </div>
 {% endblock content %}

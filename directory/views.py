@@ -163,7 +163,6 @@ def idea_detail(request, slug):
     try:
         userId = int(request.session["_auth_user_id"])
         user = User.objects.filter(id=userId).first()
-
         
         if request.method == 'POST':
             form = CommentForm(request.POST)

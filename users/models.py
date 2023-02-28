@@ -90,7 +90,7 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         """Returns URL to access a particular user instance."""
-        return reverse('directory:user_detail', args=[str(self.user_id)])
+        return reverse('directory:user_detail', args=[str(self.id)])
     
 class Idea(models.Model):
     """Model representing an Idea that a user shares with other others."""
