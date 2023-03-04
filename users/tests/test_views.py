@@ -6,6 +6,16 @@ from users.models import *
 
 # Create your tests here.
 
+class HomePageTest(TestCase):
+
+    def test_homepage_url_exists_at_location(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_homepage_url_accesible_by_name(self):
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+
 class TagViewsTest(TestCase):
 
     def setUp(self):
@@ -270,4 +280,3 @@ class IdeaViewsTest(TestCase):
         response = self.client.get('/users/1/view-ideas/')
         self.assertContains(response, 'Published')
         self.assertContains(response, 'Draft')
-
