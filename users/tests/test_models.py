@@ -62,10 +62,73 @@ class ProfileModelTest(TestCase):
 
     def test_get_absolute_url_for_Profile(self):
         skid_user = Profile.objects.get(id=1)
-        self.assertEqual(skid_user.get_absolute_url(), '/directory/users/testertim/')
+        self.assertEqual(skid_user.get_absolute_url(), '/directory/users/1/')
     
     def test_user_profile_extension(self):
         user = User.objects.get(id=1)
         self.assertEqual(user.first_name, "Tim")
         self.assertEqual(user.profile.business_name, "Tim's Testing Inc.")
+
+class IdeaModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        User.objects.create(
+            username='testertim',
+            first_name='Tim',
+            last_name='Timons',
+            email='tim.timons@test.test',
+        )
+
+        test_user = User.objects.get(id=1)
+
+        Idea.objects.create(
+            author=test_user,
+            title='Testing Ideas',
+            text='This is a test.',
+        )
+
+    def test_automatic_slugify_of_title(self):
+        idea = Idea.objects.get(id=1)
+        self.assertEqual(idea.slug, 'testing-ideas')
+
+    def test_default_status_is_draft(self):
+        idea = Idea.objects.get(id=1)
+        self.assertEqual(idea.status, 'd')
+
+    def test_get_absolute_url_for_Idea(self):
+        idea = Idea.objects.get(id=1)
+        self.assertEqual(idea.get_absolute_url(), '/directory/ideas/testing-ideas/')
+
+class CommentModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        test_user = User.objects.create(
+            username='testertim',
+            first_name='Tim',
+            last_name='Timons',
+            email='tim.timons@test.test',
+        )
+
+        test_idea = Idea.objects.create(
+            author=test_user,
+            title='Testing Ideas',
+            text='This is a test.',
+        )
+
+        Comment.objects.create(
+            idea=test_idea,
+            commenter=test_user,
+            text='This is a comment.'
+        )
+
+    def test_comment_label(self):
+        comment = Comment.objects.get(id=1)
+        field_label = comment._meta.get_field('text').verbose_name
+        self.assertEqual(field_label, 'text')
+
+    def test_comment_content(self):
+        comment = Comment.objects.get(id=1)
+        self.assertEqual(comment.text, 'This is a comment.')
         
