@@ -17,22 +17,29 @@ Users can sort both the USERS and IDEAS directories by the *Skill*, *Material*, 
 
 ## Getting Started
 
-If you would like to test the live website visit [sk-id.info](http://sk-id.info):
+### To test the live website visit [sk-id.info](http://sk-id.info)
 
 - You can create an account with a username, password, first name, and last name (It doesn't need to be your real name).
 - Fill out more profile detals.
 - Create an Idea.
 - Add Skills, Materials, or Types of Work that all users can add to their profiles or Ideas.
 
-If you would like to download or clone this project and try it with the Django development server:
+### To download or clone this project and try it with the Django development server
 
-- Install requirements.txt in a virtual environment.
+- Create a virtual environment, activate it, and install `requirements.txt` inside it.
 - Create a file called `.env` in the project's base directory with the following two lines:
 
     ```env
     SECRET_KEY='<replace with a secret key>'
     DEBUG='True'
     ```
+
+- In the same directory as `manage.py`:
+  1. run `python3 manage.py makemigrations`
+  2. run `python3 manage.py migrate`
+  3. run `python3 manage.py createsuperuser` and follow prompts
+  4. run `python3 manage.py runserver`
+- Open your browser and navigate to `localhost:8000`.
 
 ## TODO
 
