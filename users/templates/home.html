@@ -2,19 +2,37 @@
 
 
 {% block content %}
-    <div class="text-center">
+<div class="text-white" style="background-image: url('static/images/skid_background.png'); background-repeat: no-repeat;">
+    <div class="text-center ">
+        <div class="spacer"></div>
         <h1>Welcome to SKID</h1>
         <h2>Where Skills and Ideas Connect</h2>
-        <h3 class="border-bottom mb-4"></h3>
-        <p>
-            SKID is a place for people with skills to connect with people with ideas and vice-versa.<br>
-            Using SKID is easy:
-        </p>
+        <div class="spacer"></div>
+    </div>
+    <div class="bckgrnd-opacity">
+        <h5>MISSION</h5>
+        <div class="spacer"></div>
+        <div class="container">
+            <p>
+                The goal of SKID is to faciliate the free flow of ideas and collaberation among our users. 
+                No matter what skills or ideas you have, SKID is the place to find like-minded people.
+            </p>
+        </div>
+        <div style="min-height: 30px;"></div>
+        <h5>GETTING STARTED</h5>
+        <div class="spacer"></div>
         <ol>
-            <li style="list-style-position: inside;">Sign up with username and password</li>
-            <li style="list-style-position: inside;">Browse the directory of users or ideas</li>
-            <li style="list-style-position: inside;">Connect and create!</li>
+            <li>Sign up with username and password
+                <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{% url 'account_signup' %}">SIGN UP</a><br><br>
+            </li>
+            <li>Browse the directory of Users or Ideas 
+                <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{% url 'directory:users' %}">USERS</a>
+                <a class="btn btn-outline-primary" style="margin-left: 20px;" href="{% url 'directory:ideas' %}">IDEAS</a><br><br>
+            </li>
+            <li>Connect and create!</li>
         </ol> 
     </div>
+    <div style="min-height: 500px;"></div>
+</div>
 {% endblock content %}
     
