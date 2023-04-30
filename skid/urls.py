@@ -31,4 +31,6 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 ]
 
+# Early method for serving media. If this was bigger production use AWS buckets
+# or similar.
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

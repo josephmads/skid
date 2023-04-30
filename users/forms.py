@@ -38,10 +38,6 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
 
     phone_number = forms.CharField(max_length=31, required=False)
-    # about = forms.CharField(
-    #     widget=forms.Textarea(attrs={"rows": 4}),
-    #     required=False,
-    # )
 
     class Meta:
         model = Profile
