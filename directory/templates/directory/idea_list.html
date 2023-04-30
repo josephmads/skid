@@ -54,7 +54,7 @@
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">by {{ idea.author }}</h6>
     
-                    <p class="card-text">{{ idea.text | truncatechars:50 }}</p>
+                    <p class="card-text">{{ idea.text | safe | truncatechars:50 }}</p>
                     <ul style="list-style-type:none;">
                         <li>
                             Skills:

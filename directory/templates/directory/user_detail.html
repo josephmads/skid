@@ -6,7 +6,43 @@
 {% if user.is_authenticated %}
     <div class="container">
         <h1>{{ profile.user_id.first_name }} {{ profile.user_id.last_name }}</h1>
-        <ul>
+        <div class="container">
+            Skills:
+            {% for skill in profile.skills.all %} 
+            <a href="{% url 'directory:user_skill' skill.id %}" 
+                class="badge bg-primary" style="text-decoration: none;">
+                {{ skill }}
+            </a>
+            {% endfor %}
+            <br>      
+            Materials:
+            {% for material in profile.materials.all %}
+            <a href="{% url 'directory:user_material' material.id %}" 
+                class="badge bg-primary" style="text-decoration: none;">
+                {{ material }}
+            </a>
+            {% endfor %}
+            <br>    
+            Type of Work:
+            {% for type in profile.type_of_work.all %}
+            <a href="{% url 'directory:user_work_type' type.id %}" 
+                class="badge bg-primary" style="text-decoration: none;">
+                {{ type }}
+            </a>
+            {% endfor %}
+        </div>
+        <div class="spacer"></div>
+        <div class="spacer"></div>
+        <div class="border-bottom mb-4"></div>
+
+        <div class="container"> {{ profile.about | safe }}</div>
+
+        <div class="spacer"></div>
+        <div class="border-bottom mb-4"></div>
+
+        <h3>Contact Information</h3>
+
+        <ul style="list-style-type:none;">
             <li>Business Name: {{ profile.business_name }}</li>
             <li>Email: {{ profile.email_public }}</li>
             <li>Phone: {{ profile.phone_number }}</li>
@@ -18,36 +54,9 @@
                 {{ profile.zip_code }}
                 {{ profile.country }}<br>
             </li>
-            <li>Bio: {{ profile.about | linebreaks }}</li>
-            <li>
-                Skills:
-                {% for skill in profile.skills.all %} 
-                <a href="{% url 'directory:user_skill' skill.id %}" 
-                    class="badge bg-primary" style="text-decoration: none;">
-                    {{ skill }}
-                </a>
-                {% endfor %}
-            </li>
-            <li>
-                Materials:
-                {% for material in profile.materials.all %}
-                <a href="{% url 'directory:user_material' material.id %}" 
-                    class="badge bg-primary" style="text-decoration: none;">
-                    {{ material }}
-                </a>
-                {% endfor %}
-            </li>
-            <li>
-                Type of Work:
-                {% for type in profile.type_of_work.all %}
-                <a href="{% url 'directory:user_work_type' type.id %}" 
-                    class="badge bg-primary" style="text-decoration: none;">
-                    {{ type }}
-                </a>
-                {% endfor %}
-            </li>
         </ul>
     </div>
+    
 {% else %}
     <div class="container">
         <h5>Must be logged in to view this page.</h5>

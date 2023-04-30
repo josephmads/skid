@@ -1,8 +1,7 @@
 from allauth.account.forms import SignupForm
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
 from django import forms
 from django.contrib.auth import get_user_model
+from django_summernote.widgets import SummernoteWidget
 
 from .models import *
 
@@ -39,13 +38,17 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
 
     phone_number = forms.CharField(max_length=31, required=False)
-    about = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": 4}),
-        required=False,
-    )
+    # about = forms.CharField(
+    #     widget=forms.Textarea(attrs={"rows": 4}),
+    #     required=False,
+    # )
 
     class Meta:
         model = Profile
+        widgets = {
+            'about': SummernoteWidget(),
+        }
+
         fields = [
             'business_name',
             'email_public',
@@ -71,7 +74,8 @@ class IdeaForm(forms.ModelForm):
         model = Idea
         widgets = {
             'author': forms.HiddenInput(),
-            'slug': forms.HiddenInput()
+            'slug': forms.HiddenInput(),
+            'text': SummernoteWidget(),
         }
 
         fields = [
@@ -84,6 +88,7 @@ class IdeaForm(forms.ModelForm):
             'type_of_work',
             'status'
         ]
+
 
 class SkillForm(forms.ModelForm):
     skill = forms.CharField(required=False)

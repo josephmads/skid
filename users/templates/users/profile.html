@@ -31,7 +31,7 @@
                             {{ profile.country }}<br>
                         </li>
                         <br>
-                        <li><strong>About:</strong> {{ profile.about | linebreaks }}</li>
+                        <li><strong>About:</strong> {{ profile.about | safe }}</li>
                         <br>
                         <li>
                             <strong>Skills:</strong>
