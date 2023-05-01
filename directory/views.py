@@ -16,9 +16,9 @@ def directory(request):
     Lists links to filter users and ideas.
     """
     try:
-        skills = Skill.objects.all()
-        materials = Material.objects.all()
-        worktype = WorkType.objects.all()
+        skills = Skill.objects.all().order_by('skill')
+        materials = Material.objects.all().order_by('material')
+        worktype = WorkType.objects.all().order_by('work_type')
         context = {
             'skills': skills,
             'materials': materials,
