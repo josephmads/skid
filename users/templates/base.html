@@ -34,11 +34,11 @@
       </div>
       <div class="navbar-nav ms-auto">
         {% if user.is_authenticated %}
-          <a class="nav-link" href="{% url 'users:profile' user.id %}">{{ user }} <img class="icon" src="{% static 'images/user.png' %}" alt=""></a>
-          <a class="nav-link" href="{% url 'account_logout' %}">Log out <img class="icon" src="{% static 'images/logout.png' %}" alt=""></a>
+          <a id="id_nav_user" class="nav-link" href="{% url 'users:profile' user.id %}">{{ user }} <img class="icon" src="{% static 'images/user.png' %}" alt=""></a>
+          <a id="id_nav_logout" class="nav-link" href="{% url 'account_logout' %}">Log out <img class="icon" src="{% static 'images/logout.png' %}" alt=""></a>
         {% else %}
-          <a class="nav-item nav-link" href="{% url 'account_signup' %}">Sign up <img class="icon" src="{% static 'images/signup.png' %}" alt=""></a>
-          <a class="nav-item nav-link" href="{% url 'account_login' %}">Log in <img class="icon" src="{% static 'images/login.png' %}" alt=""></a>
+          <a id="id_nav_signup" class="nav-item nav-link" href="{% url 'account_signup' %}">Sign up <img class="icon" src="{% static 'images/signup.png' %}" alt=""></a>
+          <a id="id_nav_login" class="nav-item nav-link" href="{% url 'account_login' %}">Log in <img class="icon" src="{% static 'images/login.png' %}" alt=""></a>
         {% endif %}
       </div>
     </div>
