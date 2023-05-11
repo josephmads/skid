@@ -29,7 +29,7 @@ class SeleniumTestCase(StaticLiveServerTestCase):
         super().tearDownClass()
 
 
-class UserForms(SeleniumTestCase):
+class UserAuthenticationTests(SeleniumTestCase):
 
     def test_user_login_and_logout_form(self):
         self.driver.get(self.live_server_url + '/accounts/login/')
@@ -53,3 +53,29 @@ class UserForms(SeleniumTestCase):
 
         messages = self.driver.find_element(By.CLASS_NAME, 'messages')
         self.assertEqual(messages.text, 'You have signed out.')
+
+class UserProfileTests(SeleniumTestCase):
+
+    def test_user_profile(self):
+        # User Login
+        self.driver.get(self.live_server_url + '/accounts/login/')
+        user_name = self.driver.find_element(By.ID, 'id_login')
+        user_password = self.driver.find_element(By.ID, 'id_password')
+        submit = self.driver.find_element(By.ID, 'id_login_submit')
+
+        user_name.send_keys('testertim')
+        user_password.send_keys('001234567')
+        submit.click()
+
+        # Profile Test
+        self.driver.get(self.live_server_url + '/users/1/')
+        self.assertIn('tim.timons@test.test', self.driver.page_source)
+
+        edit_button = self.driver.find_element(By.ID, 'id_edit_info')
+        edit_button.click()
+    
+        save_button = self.driver.find_element(By.ID, 'id_save_edit')
+        save_button.click()
+
+        messages = self.driver.find_element(By.CLASS_NAME, 'messages')
+        self.assertEqual(messages.text, 'Profile updated successfully.')
