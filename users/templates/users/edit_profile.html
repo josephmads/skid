@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block content %}
 
@@ -68,6 +69,7 @@
         <div class="row">
             <div class="col-md-2 mb-0">
                 {{ profile_form.skills | as_crispy_field }}
+                <a class="btn btn-success" onclick="openSkillWindow()">Add Skills</a>
             </div>
             <div class="col-md-2 mb-0">
                 {{ profile_form.materials| as_crispy_field }}
@@ -83,4 +85,10 @@
 </div>
 
 {% endblock content %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/new_window.js' %}"></script>    
+{% endblock scripts %}
+    
     
