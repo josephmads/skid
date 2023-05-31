@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block title %}
     <title>Add Skills</title>
@@ -22,7 +23,7 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 <input class="btn btn-success" type="submit" value="Add">
-                <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.id %}">Return to Profile</a>
+                <a class="btn btn-secondary btn-sm" onclick="closeWindow()">Return to Profile</a>
             </form>
         </div>
 
@@ -41,4 +42,10 @@
 {% block footer %}
     
 {% endblock footer %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/new_window.js' %}"></script>
+{% endblock scripts %}
+    
     
