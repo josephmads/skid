@@ -61,10 +61,6 @@
                 <a id="id_edit_info" class="nav-link btn btn-secondary" href="{% url 'users:edit_profile' user.id %}">Edit Information</a>
                 <a id="id_create_idea" class="nav-link btn btn-secondary" href="{% url 'users:create_idea' user.id %}">Create Idea</a>
                 <a id="id_view_ideas"  class="nav-link btn btn-secondary" href="{% url 'users:view_ideas' user.id %}">View Ideas</a>
-                <li class="nav-link">- For All Users -</li>
-                <a class="nav-link btn btn-info" href="{% url 'users:add_skill' %}">Add Skills</a>
-                <a class="nav-link btn btn-info" href="{% url 'users:add_material' %}">Add Materials</a>
-                <a class="nav-link btn btn-info" href="{% url 'users:add_work_type' %}">Add Work Types</a>
             </div>
         </div>
         

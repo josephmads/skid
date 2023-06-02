@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block title %}
+    <title>Add Materials</title>
+{% endblock title %}
+
+
+{% block navbar %}
+    
+{% endblock navbar %}
+    
 
 {% block content %}
 
@@ -7,23 +18,34 @@
 
 <div class="container">
     <div class="row justify-content-evenly">
-        <div class="col-3">
+        <div class="col-4">
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form | crispy }}
                 <input class="btn btn-success" type="submit" value="Add">
-                <a class="btn btn-secondary btn-sm" href="{% url 'users:profile' user.id %}">Return to Profile</a>
+                <a class="btn btn-secondary btn-sm" onclick="closeWindow()">Return to Profile</a>
             </form>
         </div>
 
-        <div class="col-9">
+        <div class="col-8">
             <legend class="border-bottom mb-4">Available Materials:</legend>
             {% for material in materials %}
-            <span class="badge rounded-pill text-bg-light">{{ material }}</span>              
+            <span class="badge rounded-pill text-bg-light">{{ material }}</span>            
             {% endfor %} 
         </div>
     </div>
 </div>
    
 {% endblock content %}
+    
+
+{% block footer %}
+    
+{% endblock footer %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/new_window.js' %}"></script>
+{% endblock scripts %}
+    
     
