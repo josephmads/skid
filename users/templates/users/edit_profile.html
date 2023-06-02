@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {% block content %}
 
@@ -66,14 +67,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 mb-0">
+            <div class="col-md-2 mb-0" style="justify-content: center; align-items: center;">
                 {{ profile_form.skills | as_crispy_field }}
+                <a class="btn btn-success" style="margin: 0 0 35% 35%; border-radius: 25px;" 
+                title="Add another skill" onclick="openTagWindow('skill')"><strong>+</strong></a>
             </div>
             <div class="col-md-2 mb-0">
                 {{ profile_form.materials| as_crispy_field }}
+                <a class="btn btn-success" style="margin: 0 0 35% 35%; border-radius: 25px;" 
+                title="Add another material" onclick="openTagWindow('material')"><strong>+</strong></a>
             </div>
             <div class="col-md-2 mb-2">
                 {{ profile_form.type_of_work | as_crispy_field }}
+                <a class="btn btn-success" style="margin: 0 0 35% 35%; border-radius: 25px;" 
+                title="Add another type of work" onclick="openTagWindow('work-type')"><strong>+</strong></a>
             </div>
         </div>
     </div>
@@ -83,4 +90,10 @@
 </div>
 
 {% endblock content %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/new_window.js' %}"></script>    
+{% endblock scripts %}
+    
     
