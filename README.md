@@ -17,13 +17,6 @@ Users can sort both the USERS and IDEAS directories by the *Skill*, *Material*, 
 
 ## Getting Started
 
-### To test the live website visit [sk-id.info](http://sk-id.info)
-
-- You can create an account with a username, password, first name, and last name (It doesn't need to be your real name).
-- Fill out more profile detals.
-- Create an Idea.
-- Add Skills, Materials, or Types of Work that all users can add to their profiles or Ideas.
-
 ### To download or clone this project and try it with the Django development server
 
 - Create a virtual environment, activate it, and install `requirements.txt` inside it.
@@ -40,6 +33,13 @@ Users can sort both the USERS and IDEAS directories by the *Skill*, *Material*, 
   3. run `python3 manage.py createsuperuser` and follow prompts
   4. run `python3 manage.py runserver`
 - Open your browser and navigate to `localhost:8000`.
+
+### Using SKID
+
+- You can create an account with a username, password, first name, and last name (It doesn't need to be your real name).
+- Fill out more profile detals.
+- Create an Idea.
+- Add Skills, Materials, or Types of Work that all users can add to their profiles or Ideas.
 
 ## TODO
 
